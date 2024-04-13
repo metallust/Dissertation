@@ -1,1 +1,28 @@
-// name college list of student id
+import mongoose from "mongoose";
+
+const batchSchema = new mongoose.Schema({
+	// name college list of student id
+	// guide student mapping
+	college: {
+		type: String,
+		required: [true, "Please provide a Name"],
+	},
+	year: {
+		type: Number,
+		required: [true, "Please provide a Year"],
+	},
+	students: {
+		// list of student id
+		type: [mongoose.Schema.Types.ObjectId],
+		required: false,
+	},
+	// mapping of guide and student
+	mapping: {
+		type: Map,
+		required: false,
+	},
+});
+
+const Batch = mongoose.models.batches || mongoose.model("batches", batchSchema);
+
+export default Batch;

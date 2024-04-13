@@ -3,5 +3,6 @@
 	"bracketSameLine": true,
 	"useTabs": true,
 	"tabWidth": 4,
-	"proseWrap": "preserve"
+	"proseWrap": "preserve",
+	"printWidth": 300
 }
