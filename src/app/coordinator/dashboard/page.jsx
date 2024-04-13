@@ -6,6 +6,12 @@ export default function Page() {
 	const [batches, setBatches] = useState([]);
 	const [guides, setGuides] = useState([]);
 	const [year, setYear] = useState("");
+	const [guide, setGuide] = useState({
+		name: "",
+		email: "",
+		password: "",
+		domain: "",
+	});
 
 	const createBatch = async () => {
 		if (year === "") {
@@ -31,7 +37,25 @@ export default function Page() {
 			console.log(error);
 		}
 	};
-	const addGuide = () => {};
+	const addGuide = async () => {
+		try {
+			const response = await fetch("/api/guide/", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(guide),
+			});
+			const data = await response.json();
+			if (data.statusCode === 200) {
+				fetchGuides();
+			} else {
+				alert(data.message, data.status);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	const fetchbatches = () => {
 		fetch("/api/batch/", {
@@ -43,14 +67,13 @@ export default function Page() {
 			.then((res) => res.json())
 			.then((data) => {
 				if (data.statusCode === 200) {
-					console.log("Successfully fetched all the batches", data);
 					setBatches(data.data.map((ele) => ele.year));
 				} else {
 					alert(data.message, data.status);
 				}
 			})
 			.catch((err) => {
-				console.log("you suck", err);
+				console.log("you suck fetch batch", err);
 			});
 	};
 
@@ -65,7 +88,8 @@ export default function Page() {
 			.then((data) => {
 				if (data.statusCode === 200) {
 					console.log("Successfully fetched all the guides", data);
-					setGuides(data.data);
+
+					setGuides(data.data.map((ele) => ele.name));
 				} else {
 					alert(data.message, data.status);
 				}
@@ -77,7 +101,7 @@ export default function Page() {
 
 	useEffect(() => {
 		fetchbatches();
-		// fetchGuides();
+		fetchGuides();
 	}, []);
 	return (
 		<div className="min-vh-100 p-4 bg-dark text-danger">
@@ -97,6 +121,10 @@ export default function Page() {
 			</ol>
 			{/* add guide */}
 			<br />
+			<input type="text" name="name" placeholder="Name" onChange={(e) => setGuide({ ...guide, name: e.target.value })} />
+			<input type="email" name="email" placeholder="Email" onChange={(e) => setGuide({ ...guide, email: e.target.value })} />
+			<input type="password" name="password" placeholder="Password" onChange={(e) => setGuide({ ...guide, password: e.target.value })} />
+			<input type="text" name="domain" placeholder="Domain" onChange={(e) => setGuide({ ...guide, domain: e.target.value })} />
 			<button onClick={addGuide}>Add Guide</button>
 			<ol>
 				{guides.length !== 0 ? (
