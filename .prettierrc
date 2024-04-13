@@ -1,0 +1,7 @@
+{
+	"endOfLine": "lf",
+	"bracketSameLine": true,
+	"useTabs": true,
+	"tabWidth": 4,
+	"proseWrap": "preserve"
+}
