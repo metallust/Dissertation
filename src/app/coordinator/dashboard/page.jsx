@@ -1,11 +1,13 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Page() {
+	const router = useRouter();
 	const [batches, setBatches] = useState([]);
 	const [guides, setGuides] = useState([]);
-	const [year, setYear] = useState("");
+	const [batch, setBatch] = useState({ year: "", branch: "" });
 	const [guide, setGuide] = useState({
 		name: "",
 		email: "",
@@ -13,9 +15,27 @@ export default function Page() {
 		domain: "",
 	});
 
+	const logout = async () => {
+		try {
+			const response = await fetch("/api/auth/logout", {
+				method: "POST",
+			});
+			if (response.ok) {
+				console.log("Successfully logged out");
+				router.push("/login");
+			} else {
+				const data = await response.json();
+				alert(data.message, data.status);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	const createBatch = async () => {
-		if (year === "") {
-			alert("Please provide a year");
+		if (batch.year === "" || batch.branch === "") {
+			alert("Please provide a year and branch");
+			console.log(batch);
 			return;
 		}
 		try {
@@ -24,8 +44,9 @@ export default function Page() {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ year }),
+				body: JSON.stringify(batch),
 			});
+			console.log(batch);
 			const data = await response.json();
 			if (data.statusCode === 200) {
 				console.log("Successfully created the batch", data);
@@ -33,6 +54,7 @@ export default function Page() {
 			} else {
 				alert(data.message, data.status);
 			}
+			setYear("");
 		} catch (error) {
 			console.log(error);
 		}
@@ -52,6 +74,12 @@ export default function Page() {
 			} else {
 				alert(data.message, data.status);
 			}
+			setGuide({
+				name: "",
+				email: "",
+				password: "",
+				domain: "",
+			});
 		} catch (error) {
 			console.log(error);
 		}
@@ -67,7 +95,7 @@ export default function Page() {
 			.then((res) => res.json())
 			.then((data) => {
 				if (data.statusCode === 200) {
-					setBatches(data.data.map((ele) => ele.year));
+					setBatches(data.data);
 				} else {
 					alert(data.message, data.status);
 				}
@@ -87,9 +115,7 @@ export default function Page() {
 			.then((res) => res.json())
 			.then((data) => {
 				if (data.statusCode === 200) {
-					console.log("Successfully fetched all the guides", data);
-
-					setGuides(data.data.map((ele) => ele.name));
+					setGuides(data.data);
 				} else {
 					alert(data.message, data.status);
 				}
@@ -106,19 +132,26 @@ export default function Page() {
 	return (
 		<div className="min-vh-100 p-4 bg-dark text-danger">
 			Coordintor dashboard
+			<button onClick={logout}>Logout</button>
 			<br />
 			{/* add batch */}
-			<input type="year" name="batch" placeholder="Year" onChange={(e) => setYear(e.target.value)} />
+			<input type="year" placeholder="Year" onChange={(e) => setBatch({ ...batch, year: e.target.value })} value={batch.year} />
+			<input type="text" placeholder="Branch" onChange={(e) => setBatch({ ...batch, branch: e.target.value })} value={batch.branch} />
 			<button onClick={createBatch}>Create Batch</button>
-			<ol>
+			<ul>
 				{batches.length !== 0 ? (
 					batches.map((ele) => {
-						return <li key={ele}>{ele}</li>;
+						return (
+							<li key={ele._id}>
+								year : {ele.year}, branch : {ele.branch}
+								<button onClick={() => router.push("dashboard/" + ele._id)}>GOTO</button>
+							</li>
+						);
 					})
 				) : (
 					<p>no batches</p>
 				)}
-			</ol>
+			</ul>
 			{/* add guide */}
 			<br />
 			<input type="text" name="name" placeholder="Name" onChange={(e) => setGuide({ ...guide, name: e.target.value })} />
@@ -129,7 +162,7 @@ export default function Page() {
 			<ol>
 				{guides.length !== 0 ? (
 					guides.map((ele) => {
-						return <li key={ele}>{ele}</li>;
+						return <li key={ele._id}>{ele.name}</li>;
 					})
 				) : (
 					<p>no Guides</p>

@@ -10,7 +10,7 @@ export default function Page() {
 		e.preventDefault();
 		// TODO: use axios
 		// TODO: replace alert with toast
-		fetch("/api/login", {
+		fetch("/api/auth/login", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -46,30 +46,13 @@ export default function Page() {
 						<label htmlFor="email" className="form-label">
 							Email
 						</label>
-						<input
-							id="email"
-							className="form-control"
-							required
-							name="email"
-							value={info.email}
-							onChange={onchange}
-						/>
+						<input id="email" className="form-control" required name="email" value={info.email} onChange={onchange} />
 					</div>
 					<div className="mb-3">
 						<label htmlFor="password1" className="form-label">
 							Password:
 						</label>
-						<input
-							id="password1"
-							type="password"
-							className="form-control"
-							minLength={3}
-							maxLength={8}
-							required
-							name="password"
-							value={info.password}
-							onChange={onchange}
-						/>
+						<input id="password1" type="password" className="form-control" minLength={3} maxLength={8} required name="password" value={info.password} onChange={onchange} />
 					</div>
 					<div className="w-100 text-center">
 						<button type="submit" className="btn btn-secondary">

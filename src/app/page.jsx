@@ -9,7 +9,7 @@ export default function Home() {
 		// TODO: use axios
 		// TODO: replace alert with toast
 		console.log("fetching user");
-		fetch("/api/getuser", {
+		fetch("/api/auth/getuser", {
 			method: "GET",
 		})
 			.then((res) => res.json())
@@ -29,7 +29,7 @@ export default function Home() {
 		// TODO: replace it with axios
 		// todo: add toast
 		// add redirect
-		fetch("/api/signup", {
+		fetch("/api/auth/signup", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -73,53 +73,22 @@ export default function Home() {
 								<label htmlFor="email" className="form-label">
 									Email
 								</label>
-								<input
-									placeholder="example@email.com"
-									id="email"
-									className="form-control"
-									required
-									name="email"
-									value={info.email}
-									onChange={onchange}
-								/>
+								<input placeholder="example@email.com" id="email" className="form-control" required name="email" value={info.email} onChange={onchange} />
 							</div>
 							<div className="mb-3">
 								<label htmlFor="name" className="form-label">
 									Name
 								</label>
-								<input
-									placeholder="Mike Tyson"
-									id="name"
-									className="form-control"
-									required
-									name="name"
-									value={info.name}
-									onChange={onchange}
-								/>
+								<input placeholder="Mike Tyson" id="name" className="form-control" required name="name" value={info.name} onChange={onchange} />
 							</div>
 							<div className="mb-3">
-								<label
-									htmlFor="password"
-									className="form-label">
+								<label htmlFor="password" className="form-label">
 									Password:
 								</label>
-								<input
-									placeholder="Boxing@life"
-									id="password"
-									type="password"
-									className="form-control"
-									minLength={3}
-									maxLength={8}
-									required
-									name="password"
-									value={info.password}
-									onChange={onchange}
-								/>
+								<input placeholder="Boxing@life" id="password" type="password" className="form-control" minLength={3} maxLength={8} required name="password" value={info.password} onChange={onchange} />
 							</div>
 							<div className="w-100 text-center">
-								<button
-									type="submit"
-									className="btn btn-primary">
+								<button type="submit" className="btn btn-primary">
 									Sign up
 								</button>
 							</div>

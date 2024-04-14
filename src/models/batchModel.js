@@ -11,6 +11,10 @@ const batchSchema = new mongoose.Schema({
 		type: Number,
 		required: [true, "Please provide a Year"],
 	},
+	branch: {
+		type: String,
+		required: [true, "Please provide branch"],
+	},
 	students: {
 		// list of student id
 		type: [mongoose.Schema.Types.ObjectId],

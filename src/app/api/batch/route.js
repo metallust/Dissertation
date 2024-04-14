@@ -33,10 +33,11 @@ export async function POST(request) {
 		//TODO: get the college of the coordinator
 
 		// create a batch for that college
-		const { year } = await request.json();
+		const { year, branch } = await request.json();
 		const batch = new Batch({
 			// todo: get college id
 			college: "walchand",
+			branch: branch,
 			year: year,
 		});
 		await batch.save();

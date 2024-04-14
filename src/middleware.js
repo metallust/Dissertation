@@ -3,13 +3,8 @@ import { NextResponse } from "next/server";
 export function middleware(request) {
 	const path = request.nextUrl.pathname;
 
-	const isPublicPath =
-		path === "/" ||
-		path === "/login" ||
-		path === "/signup" ||
-		path === "/verifyemail";
-	const isUserPath =
-		path === "/coordinator" || path === "/student" || path === "/guide";
+	const isPublicPath = path === "/" || path === "/login" || path === "/signup" || path === "/verifyemail";
+	const isUserPath = path.startsWith("/coordinator") || path.startsWith("/student") || path.startsWith("/guide");
 
 	const token = request.cookies.get("token")?.value || "";
 	let role = request.cookies.get("role")?.value || "";
@@ -32,13 +27,5 @@ export function middleware(request) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-	matcher: [
-		"/",
-		"/coordinator",
-		"/student",
-		"/guide",
-		"/login",
-		"/signup",
-		"/verifyemail",
-	],
+	matcher: ["/", "/coordinator", "/coordinator/dashboard", "/student", "/student/dashboard", "/guide", "/guide/dashboard", "/login", "/signup", "/verifyemail"],
 };

@@ -3,6 +3,7 @@ import { getDataFromToken } from "@/helper/jwt";
 import User from "@/models/userModel";
 import Response from "@/utils/response";
 import { NextResponse } from "next/server";
+import bcryptjs from "bcryptjs";
 connect();
 
 export async function GET(request) {
@@ -42,11 +43,13 @@ export async function POST(request) {
 			});
 		}
 		// create a guide for that college
+		const salt = await bcryptjs.genSalt(10);
+		const hashedPassword = await bcryptjs.hash(password, salt);
 
 		const guide = new User({
 			name: name,
 			email: email,
-			password: password,
+			password: hashedPassword,
 			role: "guide",
 			domain: domain,
 		});
