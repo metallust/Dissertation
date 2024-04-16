@@ -8,18 +8,15 @@
 // current progress
 
 import mongoose from "mongoose";
-import User from "./userModel";
 
 const disserationSchema = new mongoose.Schema({
 	studentid: {
-		type: User,
-		required: [true, "Please provide a Name"],
+		type: mongoose.Schema.Types.ObjectId,
+		required: [true, "Please provide a student id"],
 		unique: true,
 	},
 });
 
-const Dissertation =
-	mongoose.models.disserationSchema ||
-	mongoose.model("users", disserationSchema);
+const Dissertation = mongoose.models.disserations || mongoose.model("disserations", disserationSchema);
 
 export default Dissertation;

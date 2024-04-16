@@ -4,6 +4,7 @@ import User from "@/models/userModel";
 import Response from "@/utils/response";
 import { NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
+import Dissertation from "@/models/dissertationModel";
 connect();
 
 export async function GET(request) {
@@ -29,6 +30,13 @@ export async function POST(request) {
 		// get the college of the coordinator
 		// get the batch id
 		const { name, email, password, batchid } = await request.json();
+
+		// check if the student is already present
+		const user = await User.findOne({ email: email });
+		if (user) {
+			return NextResponse.json(new Response(400, "Student already present", null), { status: 400 });
+		}
+
 		// add the student in users with role of student with hashed password
 		const salt = await bcryptjs.genSalt(10);
 		const hashedPassword = await bcryptjs.hash(password, salt);
@@ -43,6 +51,12 @@ export async function POST(request) {
 		const batch = await Batch.findById(batchid);
 		batch.students.push(student._id);
 		await batch.save();
+
+		//add user id in disseration
+		const disseration = new Dissertation({
+			studentid: student._id,
+		});
+		await disseration.save();
 		return NextResponse.json(new Response(200, "Successfully add student", batch), { status: 200 });
 	} catch (error) {
 		console.log(error);

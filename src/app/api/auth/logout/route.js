@@ -3,11 +3,12 @@ import { NextResponse } from "next/server";
 
 export async function POST(request) {
 	try {
-		const response = NextResponse.json(
-			new Response(200, "Logout successful", null),
-			{ status: 200 },
-		);
+		const response = NextResponse.json(new Response(200, "Logout successful", null), { status: 200 });
 		response.cookies.set("token", "", {
+			httpOnly: true,
+			expires: new Date(0),
+		});
+		response.cookies.set("role", "", {
 			httpOnly: true,
 			expires: new Date(0),
 		});
