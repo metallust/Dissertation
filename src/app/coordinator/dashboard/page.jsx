@@ -7,7 +7,7 @@ export default function Page() {
 	const router = useRouter();
 	const [batches, setBatches] = useState([]);
 	const [guides, setGuides] = useState([]);
-	const [batch, setBatch] = useState({ year: "", branch: "" });
+	const [batch, setBatch] = useState({ year: "", branch: "", domainset: [] });
 	const [guide, setGuide] = useState({
 		name: "",
 		email: "",
@@ -33,8 +33,8 @@ export default function Page() {
 	};
 
 	const createBatch = async () => {
-		if (batch.year === "" || batch.branch === "") {
-			alert("Please provide a year and branch");
+		if (batch.year === "" || batch.branch === "" || batch.domainset.length === 0) {
+			alert("Please provide a year, branch, and at least one domain");
 			console.log(batch);
 			return;
 		}
@@ -125,25 +125,31 @@ export default function Page() {
 			});
 	};
 
+	const handleDomainsetChange = (e) => {
+		const domainsetArray = e.target.value.split(",").map((domainset) => domainset.trim()); // Split the input by comma and trim each domain
+		setBatch({ ...batch, domainset: domainsetArray });
+	};
+
 	useEffect(() => {
 		fetchbatches();
 		fetchGuides();
 	}, []);
 	return (
 		<div className="min-vh-100 p-4 bg-dark text-danger">
-			Coordintor dashboard
+			Coordinator dashboard
 			<button onClick={logout}>Logout</button>
 			<br />
 			{/* add batch */}
 			<input type="year" placeholder="Year" onChange={(e) => setBatch({ ...batch, year: e.target.value })} value={batch.year} />
 			<input type="text" placeholder="Branch" onChange={(e) => setBatch({ ...batch, branch: e.target.value })} value={batch.branch} />
+			<input type="text" name="domains" placeholder="Domains (comma-separated)" onChange={handleDomainsetChange} value={batch.domainset.join(", ")} />
 			<button onClick={createBatch}>Create Batch</button>
 			<ul>
 				{batches.length !== 0 ? (
 					batches.map((ele) => {
 						return (
 							<li key={ele._id}>
-								year : {ele.year}, branch : {ele.branch}
+								year: {ele.year}, branch: {ele.branch}, domainset: {ele.domainset ? ele.domainset.join(", ") : "No domains"}
 								<button onClick={() => router.push("dashboard/" + ele._id)}>GOTO</button>
 							</li>
 						);
