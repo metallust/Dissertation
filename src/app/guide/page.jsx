@@ -8,5 +8,9 @@ export default function Page() {
 	useEffect(() => {
 		router.push("/guide/dashboard");
 	}, [router]);
-	return <div className="min-vh-100 p-4 bg-dark text-white">guide</div>;
+	return (
+		<div className="min-vh-100 p-4 bg-dark text-white">
+			guide 
+		</div>
+	);
 }
