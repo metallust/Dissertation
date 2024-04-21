@@ -1,3 +1,4 @@
+import { useRouter } from "next/navigation";
 import React from "react";
 
 function Announcements({ announcements }) {
@@ -122,6 +123,24 @@ function StudentTodo({ todos }) {
 const StudentSidebar = ({ announcements, todos }) => {
 	const name = "Basit";
 	const section = "section";
+	const router = useRouter();
+
+	const logout = async () => {
+		try {
+			const response = await fetch("/api/auth/logout", {
+				method: "POST",
+			});
+			if (response.ok) {
+				console.log("Successfully logged out");
+				router.push("/login");
+			} else {
+				const data = await response.json();
+				alert(data.message, data.status);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
 	return (
 		<div className="p-0 m-0">
 			<div className="h3 my-3 py-2 fw-bold d-flex justify-content-center position" style={{ color: "#004256" }}>
@@ -141,6 +160,9 @@ const StudentSidebar = ({ announcements, todos }) => {
 			</div>
 			<StudentTodo todos={todos} />
 			<Announcements announcements={announcements} />
+			<button type="button" onClick={logout} className="btn btn-primary" style={{ background: "#004256" }}>
+				Logout
+			</button>
 		</div>
 	);
 };

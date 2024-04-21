@@ -73,7 +73,6 @@ function File({ approved = true }) {
 }
 
 export default function Page() {
-	const router = useRouter();
 	const [tab, setTab] = useState(0);
 	const files = [<File key={1} />, <File key={2} />, <File key={3} />];
 	const conversation = [];
@@ -94,23 +93,6 @@ export default function Page() {
 		console.log(file);
 
 		document.getElementById("fileModal").close();
-	};
-
-	const logout = async () => {
-		try {
-			const response = await fetch("/api/auth/logout", {
-				method: "POST",
-			});
-			if (response.ok) {
-				console.log("Successfully logged out");
-				router.push("/login");
-			} else {
-				const data = await response.json();
-				alert(data.message, data.status);
-			}
-		} catch (error) {
-			console.log(error);
-		}
 	};
 
 	return (
