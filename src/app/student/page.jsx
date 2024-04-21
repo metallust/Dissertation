@@ -11,8 +11,11 @@ export default function Page() {
 		if (response.ok) {
 			console.log("Successfully fetched dissertation");
 			const data = await response.json();
-			if (data.stage === 0) {
-				router.push("/student/setup");
+
+			if (data.data.stage === "domainselection") {
+				router.push("/student/setup/domainselect");
+			} else if (data.data.stage === "ideasubmission") {
+				router.push("/student/setup/ideasubmit");
 			} else {
 				router.push("/student/dashboard");
 			}

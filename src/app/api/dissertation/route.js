@@ -13,15 +13,13 @@ export async function GET(request) {
 		const token = request.cookies.get("token")?.value || "";
 		const { id, role } = getDataFromToken(token);
 
-		// Check if the role is student
-		if (role !== "student") {
-			return NextResponse.json(new Response(403, "You are not allowed to view dissertation", null), {
-				status: 403,
+		// Find the dissertation document associated with the student
+		const dissertation = await Dissertation.findOne({ studentid: id });
+		if (!dissertation) {
+			return NextResponse.json(new Response(404, "Dissertation not found", null), {
+				status: 404,
 			});
 		}
-
-		// Find the dissertation document associated with the student
-		const dissertation = await Dissertation.findOne({ studentId: id });
 
 		// Return the dissertation document
 		return NextResponse.json(new Response(200, "Dissertation document", dissertation), { status: 200 });
