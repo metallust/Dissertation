@@ -1,7 +1,9 @@
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 
 const GuideSidebar = () => {
+	const router = useRouter();
 	const card = {
 		height: "150px",
 		width: "100%",
@@ -34,6 +36,23 @@ const GuideSidebar = () => {
 
 	const [activeDepartment, setActiveDepartment] = useState(null);
 	const [activeBatch, setActiveBatch] = useState(null);
+
+	const logout = async () => {
+		try {
+			const response = await fetch("/api/auth/logout", {
+				method: "POST",
+			});
+			if (response.ok) {
+				console.log("Successfully logged out");
+				router.push("/login");
+			} else {
+				const data = await response.json();
+				alert(data.message, data.status);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	const handleDepartmentClick = (index) => {
 		setActiveDepartment(index);
@@ -170,6 +189,7 @@ const GuideSidebar = () => {
 					</ul>
 				</div>
 			</div>
+
 		</div>
 	);
 };
