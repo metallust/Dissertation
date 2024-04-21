@@ -20,6 +20,10 @@ const disserationSchema = new mongoose.Schema({
 		enum: ["domainselection", "ideasubmission"],
 		default: "domainselection",
 	},
+	preferences: {
+		type: [String],
+		default: [],
+	},
 });
 
 const Dissertation = mongoose.models.disserations || mongoose.model("disserations", disserationSchema);
