@@ -8,9 +8,6 @@ export default function Page() {
 
 	const fetchDissertation = async () => {
 		const response = await fetch("/api/dissertation");
-		const data = await response.json();
-		console.log(data);
-
 		if (response.ok) {
 			console.log("Successfully fetched dissertation");
 			const data = await response.json();
