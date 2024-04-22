@@ -10,7 +10,7 @@ import GuideRightbar from "../../GuideRightbar";
 
 import Body from "./Body";
 
-export default function Page() {
+export default function Page({params}) {
 	//CSS
 	const sidebar = {
 		display: "block",
@@ -73,7 +73,7 @@ export default function Page() {
 						marginTop: "10px",
 					}}>
 					{/* <p>Computer Science 2023-24</p> */}
-					<Body />
+					<Body id={params.id}/>
 				</div>
 			</div>
 			<div style={rightbar}>

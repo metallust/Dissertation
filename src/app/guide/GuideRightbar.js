@@ -1,13 +1,32 @@
+import { useRouter } from "next/navigation";
+
 function Rightbar() {
 	const buttonstyle = {
 		background: "none",
 		border: "none",
 	};
+	const router = useRouter();
+	const logout = async () => {
+		try {
+			const response = await fetch("/api/auth/logout", {
+				method: "POST",
+			});
+			if (response.ok) {
+				console.log("Successfully logged out");
+				router.push("/login");
+			} else {
+				const data = await response.json();
+				alert(data.message, data.status);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
 	return (
 		<div className="p-0 m-0">
 			<div
 				style={{
-					height:"10vh",
+					height: "10vh",
 					backgroundColor: "#E1F8FF",
 					marginTop: "10px",
 					borderRadius: "10px",
@@ -121,6 +140,9 @@ function Rightbar() {
 					</svg>
 					Committee
 				</div>
+				<button onClick={logout} style={buttonstyle}>
+					Logout
+				</button>
 			</div>
 		</div>
 	);

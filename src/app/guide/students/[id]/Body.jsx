@@ -1,73 +1,49 @@
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 
-const Body = () => {
-	const students = [
-		{
-			id: "1",
-			name: "Basit",
-			prn: "1",
-			branch: "CSE",
-			batch: "2019",
-			division: "A",
-			roll: "1",
-		},
-		{
-			id: "2",
-			name: "Irfan",
-			prn: "2",
-			branch: "CSE",
-			batch: "2019",
-			division: "B",
-			roll: "3",
-		},
-		{
-			id: "3",
-			name: "Gaurav",
-			prn: "5",
-			branch: "IT",
-			batch: "2019",
-			division: "A",
-			roll: "6",
-		},
-	];
-	const router = useRouter();
-	const handleStudent = (id) => {
-		router.push(`/guide/students/${id}`);
+const Body = (props) => {
+	const { id } = props;
+	//TODO
+	//Check weather the topic is selected
+	const [dissertation, setDissertation] = React.useState({});
+	const getDissertation = (userid) => {
+		fetch("/api/guide/getdissertation", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ userid }),
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				if (data.statusCode === 200) {
+					setDissertation(data.data);
+				} else {
+					alert(data.message, data.status);
+				}
+			})
+			.catch((err) => {
+				console.log("you suck at fetch batch", err);
+			});
 	};
-	return (
-		<div style={{ width: "100%" }}>
-			{students.map((s) => {
-				return (
-					<button
-						onClick={handleStudent(s.id)}
-						style={{
-							border: "none",
-							height: "33px",
-							paddingLeft: "20px",
-							paddingRight: "20px",
-							justifyContent: "space-between",
-							borderRadius: "7px",
-							backgroundColor: "#E1F8FF",
-							marginLeft: "10px",
-							marginRight: "10px",
-							display: "flex",
-							marginBottom: "13px",
-							alignItems: "center",
-							boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.1",
-							width: "99%",
-						}}>
-						<p>
-							{s.batch}-{s.branch}-{s.division}
-							{s.roll}
-						</p>
-						<p>{s.name}</p>
-						<p>{s.prn}</p>
-					</button>
-				);
-			})}
-		</div>
-	);
+	useEffect(() => {
+		//Get the dissertation of the student with props.id
+		getDissertation(id);
+		// console.log(dissertation);
+	});
+	//If topic is not finalized show the topic given by student
+	//Select a topic and notify the student
+
+	//If topic is finalized then show the current dissertation progress
+
+	const router = useRouter();
+	return <div style={{ width: "100%", margin:"0 5%"}}>
+		{
+			dissertation.stage=="topicselection"?<div>
+				Hello
+			</div>:""
+		}
+	</div>;
 };
 
 export default Body;

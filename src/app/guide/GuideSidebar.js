@@ -37,22 +37,7 @@ const GuideSidebar = () => {
 	const [activeDepartment, setActiveDepartment] = useState(null);
 	const [activeBatch, setActiveBatch] = useState(null);
 
-	const logout = async () => {
-		try {
-			const response = await fetch("/api/auth/logout", {
-				method: "POST",
-			});
-			if (response.ok) {
-				console.log("Successfully logged out");
-				router.push("/login");
-			} else {
-				const data = await response.json();
-				alert(data.message, data.status);
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
+	
 
 	const handleDepartmentClick = (index) => {
 		setActiveDepartment(index);
