@@ -12,7 +12,7 @@ export default function Page() {
 		name: "",
 		email: "",
 		password: "",
-		domain: "",
+		domainset: [],
 	});
 
 	const logout = async () => {
@@ -125,6 +125,7 @@ export default function Page() {
 			});
 	};
 
+	// TODO: Needs improvement
 	const handleDomainsetChange = (e) => {
 		const domainsetArray = e.target.value.split(",").map((domainset) => domainset.trim()); // Split the input by comma and trim each domain
 		setBatch({ ...batch, domainset: domainsetArray });

@@ -49,9 +49,9 @@ export default function Home() {
 			});
 	};
 	const [info, setInfo] = useState({
-		email: null,
-		password: null,
-		name: null,
+		email: "",
+		password: "",
+		name: "",
 	});
 	const onchange = (e) => {
 		setInfo({ ...info, [e.target.name]: e.target.value });

@@ -22,7 +22,7 @@ const batchSchema = new mongoose.Schema({
 	},
 	// mapping of guide and student
 	mapping: {
-		type: Map,
+		type: Object,
 		required: false,
 	},
 	domainset: {

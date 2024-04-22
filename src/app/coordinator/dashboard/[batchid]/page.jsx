@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function UserProfile({ params }) {
 	const [batches, setBatches] = useState([]);
-	const [batch, setBatch] = useState({ year: "", branch: "", students: [] });
+	const [batch, setBatch] = useState({ year: "", branch: "", students: [], mapping: [] });
 	const [students, setStudents] = useState([]);
 
 	const fetchbatches = () => {
@@ -64,7 +64,22 @@ export default function UserProfile({ params }) {
 			console.log("Student added successfully");
 			fetchallstudents();
 		} else {
-			alert(data.message, data.status);
+			alert(data.message + data.status);
+		}
+	};
+	const mapStudentGuide = async () => {
+		const response = await fetch("/api/batch/map/", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ batchid: params.batchid }),
+		});
+		const data = await response.json();
+		if (data.statusCode === 200) {
+			console.log("Mapping done successfully", data);
+		} else {
+			alert(data.message, data.statusCode);
 		}
 	};
 
@@ -74,6 +89,8 @@ export default function UserProfile({ params }) {
 			<p>Batch ID: {params.batchid}</p>
 			<p>Batch year: {batch.year}</p>
 			<p>Batch branch: {batch.branch}</p>
+			<button onClick={mapStudentGuide}>Allocate Student Guide</button>
+			{batch.mapping ? <Mapping mapping={batch.mapping} /> : <p>Mapping not found</p>}
 
 			<input type="text" name="name" placeholder="Name" onChange={(e) => setStudent({ ...student, name: e.target.value })} value={student.name} />
 			<input type="email" name="email" placeholder="Email" onChange={(e) => setStudent({ ...student, email: e.target.value })} value={student.email} />
@@ -91,3 +108,25 @@ export default function UserProfile({ params }) {
 		</div>
 	);
 }
+
+const Mapping = ({ mapping }) => {
+	console.log(mapping);
+	mapping = mapping.map((mapz) => {
+		return (
+			<div key={mapz.guide}>
+				<p>Guide: {mapz.guide}</p>
+				<ul>
+					{mapz.students.length === 0 ? (
+						<p>No students</p>
+					) : (
+						mapz.students.map((student) => {
+							return <li key={student}>{student}</li>;
+						})
+					)}
+				</ul>
+			</div>
+		);
+	});
+
+	return <div>{mapping.length === 0 ? <p>No mapping</p> : <div>{mapping.map((ele) => ele)}</div>}</div>;
+};
