@@ -24,6 +24,14 @@ const disserationSchema = new mongoose.Schema({
 		type: [String],
 		default: [],
 	},
+	guide: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "users",
+	},
+	ideas: {
+		type: Object,
+		default: [],
+	},
 });
 
 const Dissertation = mongoose.models.disserations || mongoose.model("disserations", disserationSchema);
