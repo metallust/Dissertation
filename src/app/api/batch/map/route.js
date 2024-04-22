@@ -66,6 +66,15 @@ export async function POST(request) {
 		// reconstruct mapping
 		let newMapping = [];
 		for (const [key, value] of Object.entries(mapping)) {
+			for (let i = 0; i < value.length; i++) {
+				const student = value[i];
+				const dissertations = await Dissertation.find({ studentid: student });
+				const dissertation = dissertations[0];
+				dissertation.guide = key;
+				dissertation.stage = "ideasubmission";
+				await dissertation.save();
+			}
+
 			newMapping.push({
 				guide: key,
 				students: value,
