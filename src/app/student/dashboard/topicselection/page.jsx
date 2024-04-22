@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import AddNote from "./AddNote";
 import Notes from "./Notes";
 import { useEffect, useState } from "react";
@@ -7,8 +8,8 @@ import { useEffect, useState } from "react";
 export default function Page() {
 	const [notes, setNotes] = useState([]);
 	const [saved, setSaved] = useState(true);
+	const router = useRouter();
 	const fetchNotes = async () => {
-		console.log("fetching ideas");
 		const response = await fetch("/api/dissertation/ideaselection", {
 			method: "GET",
 			headers: {
@@ -61,13 +62,12 @@ export default function Page() {
 			alert("Error in saving ideas " + json.message, "danger");
 		}
 	};
-
 	return (
 		<div className="container">
 			<AddNote addNote={addNote} />
 			<Notes notes={notes} editNote={editNote} deleteNote={deleteNote} />
 
-			<button className="btn-primary" onClick={save}>
+			<button className="btn btn-secondary mx-2" onClick={save}>
 				{saved ? "Saved" : "Save"}
 			</button>
 		</div>
