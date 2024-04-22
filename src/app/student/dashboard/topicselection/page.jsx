@@ -67,7 +67,7 @@ export default function Page() {
 			<AddNote addNote={addNote} />
 			<Notes notes={notes} editNote={editNote} deleteNote={deleteNote} />
 
-			<button className="btn btn-secondary mx-2" onClick={save}>
+			<button className="btn btn-primary mx-2" onClick={save}>
 				{saved ? "Saved" : "Save"}
 			</button>
 		</div>
