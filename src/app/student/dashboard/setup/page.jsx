@@ -87,6 +87,7 @@ export default function DomainSelectionPage() {
 			console.log(error);
 		}
 	};
+	console.log("setup");
 
 	return (
 		<div className="min-vh-100 p-4 bg-dark text-danger">

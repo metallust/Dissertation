@@ -3,7 +3,6 @@ import { getDataFromToken } from "@/helper/jwt";
 import Dissertation from "@/models/dissertationModel";
 import Response from "@/utils/response";
 import { NextResponse } from "next/server";
-import User from "@/models/userModel"; // Import the User model
 
 connect();
 
