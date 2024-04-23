@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 function Rightbar() {
 	const buttonstyle = {
 		background: "none",
-		border: "none",
+		border: "none"
 	};
 	const router = useRouter();
 	const logout = async () => {
@@ -24,6 +24,7 @@ function Rightbar() {
 	};
 	return (
 		<div className="p-0 m-0">
+			<h5 style={{ color: "#004257" }}>Research House</h5>
 			<div
 				style={{
 					height: "10vh",
@@ -140,7 +141,7 @@ function Rightbar() {
 					</svg>
 					Committee
 				</div>
-				<button onClick={logout} style={buttonstyle}>
+				<button onClick={logout} style={{ backgroundColor: "#004257 ", color: "white", border: "none", width: "90%", padding: "3px 0", borderRadius: "7px" }}>
 					Logout
 				</button>
 			</div>

@@ -66,6 +66,9 @@ export default function Page({params}) {
 					<GuideSidebar />
 				</div>
 			</div> */}
+			<div style={rightbar}>
+				<GuideRightbar />
+			</div>
 			<div style={content}>
 				<div
 					className="d-flex justify-content-between"
@@ -73,11 +76,8 @@ export default function Page({params}) {
 						marginTop: "10px",
 					}}>
 					{/* <p>Computer Science 2023-24</p> */}
-					<Body id={params.id}/>
+					<Body id={params.id} />
 				</div>
-			</div>
-			<div style={rightbar}>
-				<GuideRightbar />
 			</div>
 		</div>
 	);

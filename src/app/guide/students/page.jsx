@@ -66,6 +66,9 @@ export default function Page() {
 					<GuideSidebar />
 				</div>
 			</div> */}
+			<div style={rightbar}>
+				<GuideRightbar />
+			</div>
 			<div style={content}>
 				<div
 					className="d-flex justify-content-between"
@@ -75,9 +78,6 @@ export default function Page() {
 					{/* <p>Computer Science 2023-24</p> */}
 					<Body />
 				</div>
-			</div>
-			<div style={rightbar}>
-				<GuideRightbar />
 			</div>
 		</div>
 	);
