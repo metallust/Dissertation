@@ -1,11 +1,14 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Index from "./Index";
 
 export default function UserProfile({ params }) {
 	const [batches, setBatches] = useState([]);
 	const [batch, setBatch] = useState({ year: "", branch: "", students: [], mapping: [] });
 	const [students, setStudents] = useState([]);
+	const router = useRouter();
 
 	const fetchbatches = () => {
 		fetch("/api/batch/", {
@@ -82,6 +85,9 @@ export default function UserProfile({ params }) {
 			alert(data.message, data.statusCode);
 		}
 	};
+	const createTimeline = async () => {
+		router.push("/coordinator/dashboard/" + params.batchid + "/timelineeditor");
+	};
 
 	return (
 		<div>
@@ -105,12 +111,13 @@ export default function UserProfile({ params }) {
 					<p>no Students</p>
 				)}
 			</ul>
+			<h4>Timeline Editor</h4>
+			<Index batchid={params.batchid} />
 		</div>
 	);
 }
 
 const Mapping = ({ mapping }) => {
-	console.log(mapping);
 	mapping = mapping.map((mapz) => {
 		return (
 			<div key={mapz.guide}>

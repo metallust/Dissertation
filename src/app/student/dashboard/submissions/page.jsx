@@ -16,34 +16,6 @@ export default function Page() {
 	return (
 		// main
 		<>
-			{/* Timeline */}
-			<Timeline
-				n={5}
-				complete={3}
-				descriptions={[
-					{
-						title: "Synopsis",
-						position: 1,
-					},
-					{
-						title: "Research",
-						position: 1,
-					},
-					{
-						title: "Implementation",
-						position: 1,
-					},
-					{
-						title: "Reports",
-						position: 1,
-					},
-					{
-						title: "Publication",
-						position: 1,
-					},
-				]}
-			/>
-
 			{/* main content */}
 			<div className="px-4">
 				<div className="flex-grow-1 d-flex justify-content-between">
