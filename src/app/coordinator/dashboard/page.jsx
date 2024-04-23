@@ -197,7 +197,7 @@ export default function Page() {
 						return (
 							<li key={ele._id}>
 								year: {ele.year}, branch: {ele.branch}, domainset: {ele.domainset ? ele.domainset.join(", ") : "No domains"}
-								<button onClick={() => router.push("dashboard/" + ele._id)}>GOTO</button>
+								<button onClick={() => router.push("dashboard/batch/" + ele._id)}>GOTO</button>
 							</li>
 						);
 					})
