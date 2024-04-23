@@ -52,46 +52,84 @@ export default function Home() {
 		email: "",
 		password: "",
 		name: "",
+		domain:""
 	});
 	const onchange = (e) => {
 		setInfo({ ...info, [e.target.name]: e.target.value });
 	};
+
+	const inputStyle = { width: "50dvw", height: "40%", padding: "10px", borderRadius: "10px", boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)", border: "none", color: "#004257", fontSize: "16px", fontWeight: "600", fontFamily: "Roboto, sans-serif", marginBottom: "20px" };
+
+	const headerStyle = { fontSize: "32px", fontWeight: "700", marginBottom: "5px" };
+
+	const cardStyle = { border: "none", padding: "20px", borderRadius: "5px", boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)", color: "#004257", background: "#E1F8FF", fontFamily: "Roboto, sans-serif", textAlign: "center" };
+
+	const buttonstyle = {
+		width: "176px",
+		height: "50px",
+		padding: "10px",
+		backgroundColor: "#004257",
+		borderRadius: "10px",
+		border: "none",
+		color: "#fff",
+		fontSize: "24px",
+		fontWeight: "600",
+		boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px 0px 4px rgba(0, 0, 0, 0.25)",
+		marginBottom: "20px",
+	};
+
+
 	return (
 		<main>
-			<div>
-				<h1>Research House</h1>
-				<Link href="/login">Login</Link>
-				<h3>PG dissertation management tool</h3>
-			</div>
-			<div>
-				<div className="min-vh-100 p-4">
-					<div className="card border p-4 w-50 min-vh-500 container align-self-center overflow-hidden">
-						<h1 className="text-center">Sign up</h1>
-
+			<div className="signup">
+				<div className="login-box" style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh" }}>
+					<div className="card border" style={cardStyle}>
+						<p style={headerStyle}>ResearchHouse</p>
+						
+						<p style={headerStyle}>Sign-Up</p>
 						<form onSubmit={onSubmit}>
 							<div className="mb-3">
-								<label htmlFor="email" className="form-label">
+								{/* <label htmlFor="email" className="form-label">
 									Email
-								</label>
-								<input placeholder="example@email.com" id="email" className="form-control" required name="email" value={info.email} onChange={onchange} />
+								</label> */}
+								<input placeholder="Enter Email" id="email" className="form-control" required name="email" 
+								style={inputStyle} value={info.email} onChange={onchange} />
 							</div>
 							<div className="mb-3">
-								<label htmlFor="name" className="form-label">
+								{/* <label htmlFor="name" className="form-label">
 									Name
-								</label>
-								<input placeholder="Mike Tyson" id="name" className="form-control" required name="name" value={info.name} onChange={onchange} />
+								</label> */}
+								<input placeholder="Enter Name" id="name" className="form-control" required name="name" style={inputStyle} value={info.name} onChange={onchange} />
 							</div>
 							<div className="mb-3">
-								<label htmlFor="password" className="form-label">
+								{/* <label htmlFor="password" className="form-label">
 									Password:
-								</label>
-								<input placeholder="Boxing@life" id="password" type="password" className="form-control" minLength={3} maxLength={8} required name="password" value={info.password} onChange={onchange} />
+								</label> */}
+								<input placeholder="Enter Password" id="password" type="password"  style={inputStyle}
+							className="form-control" minLength={3} maxLength={8} required name="password" value={info.password} onChange={onchange} />
+							</div>
+							<div className="mb-3">
+							<input placeholder="Enter Domains  {eg CSE, IT etc.}" id="domains" type="text"  style={inputStyle}
+							className="form-control"  required name="domains" value={info.domain} onChange={onchange} />
 							</div>
 							<div className="w-100 text-center">
-								<button type="submit" className="btn btn-primary">
+								<button type="submit" className="submitbullon" style={buttonstyle}>
 									Sign up
 								</button>
 							</div>
+							<div className='col-lg-12 col-md-12 col-sm-12 col-xs-12 div_spacing'>
+									<span
+										style={{
+											fontSize: "16px",
+											fontWeight: "500",
+											color: "#004257",
+											fontFamily: "Roboto, sans-serif",
+										}}
+									>
+										Already Have An Account?{" "}
+										<Link href="/login">Login</Link>
+									</span>
+								</div>
 						</form>
 					</div>
 				</div>

@@ -2,8 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Rightbar from "./Rightbar";
+import Rightbar from "./PgRightbar";
 import PgCoordinatorSidebar from "./PgCoordinatorSidebar";
+import PgRightbar from "./PgRightbar";
 
 export default function Page() {
 	const router = useRouter();
@@ -229,11 +230,6 @@ export default function Page() {
 		// </div>
 		<div>
 			<div style={main}>
-				<div style={sidebar}>
-					<div className="d-flex">
-						<PgCoordinatorSidebar />
-					</div>
-				</div>
 				{/* <div style={content}>
 				<AddGuides />
 				<Outlet />
@@ -250,9 +246,6 @@ export default function Page() {
 					{/* <GuideSubmissionView /> */}
 					{/* <GuideApproval /> */}
 					{/* <Outlet /> */}
-				</div>
-				<div style={rightbar}>
-					<Rightbar />
 				</div>
 			</div>
 		</div>

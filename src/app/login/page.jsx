@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -84,6 +85,19 @@ export default function Page() {
 							Login
 						</button>
 					</div>
+					<div className='col-lg-12 col-md-12 col-sm-12 col-xs-12 div_spacing'>
+									<span
+										style={{
+											fontSize: "16px",
+											fontWeight: "500",
+											color: "#004257",
+											fontFamily: "Roboto, sans-serif",
+										}}
+									>
+										Dont Have An Account?{" "}
+										<Link href="/">Register</Link>
+									</span>
+								</div>
 				</form>
 			</div>
 		</div>

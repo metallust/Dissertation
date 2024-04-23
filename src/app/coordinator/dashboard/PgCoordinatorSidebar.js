@@ -60,7 +60,7 @@ const PgCoordinatorSidebar = () => {
 				</div>
 			</div>
 
-			<div
+			{/* <div
 				className="d-flex flex-column justify-content-center"
 				style={{
 					height: "120px",
@@ -81,7 +81,7 @@ const PgCoordinatorSidebar = () => {
 					<div></div>
 				</div>
 				<p className="fw-semibold">Upcoming: Presentation (05/12/2012)</p>
-			</div>
+			</div> */}
 
 			<div style={card}>
 				<div style={title}>Departments</div>
@@ -144,7 +144,7 @@ const PgCoordinatorSidebar = () => {
 					</ul>
 				</div>
 			</div>
-			<div className="d-flex flex-column">
+			<div className="d-flex flex-column mt-2">
 				<div style={{ backgroundColor: "#004257", color: "white" }} className="btn mb-2" to={"/pg/addstudent"}>
 					Add Student
 				</div>

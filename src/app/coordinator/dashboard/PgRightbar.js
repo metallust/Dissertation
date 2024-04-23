@@ -1,6 +1,6 @@
 import React from "react";
 
-function Rightbar() {
+function PgRightbar() {
 	const buttonstyle = {
 		background: "none",
 		border: "none",
@@ -127,4 +127,4 @@ function Rightbar() {
 	);
 }
 
-export default Rightbar;
+export default PgRightbar;
