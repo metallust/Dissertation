@@ -15,7 +15,8 @@ export default function Page() {
 		name: "",
 		email: "",
 		password: "",
-		domainset: [],
+		domain: "",
+		branch: "",
 	});
 
 	const logout = async () => {
@@ -128,12 +129,6 @@ export default function Page() {
 			});
 	};
 
-	// TODO: Needs improvement
-	const handleDomainsetChange = (e) => {
-		const domainsetArray = e.target.value.split(",").map((domainset) => domainset.trim()); // Split the input by comma and trim each domain
-		setBatch({ ...batch, domainset: domainsetArray });
-	};
-
 	useEffect(() => {
 		fetchbatches();
 		fetchGuides();
@@ -188,66 +183,45 @@ export default function Page() {
 	};
 
 	return (
-		// <div className="min-vh-100 p-4 bg-dark text-danger">
-		// 	Coordinator dashboard
-		// 	<button onClick={logout}>Logout</button>
-		// 	<br />
-		// 	{/* add batch */}
-		// 	<input type="year" placeholder="Year" onChange={(e) => setBatch({ ...batch, year: e.target.value })} value={batch.year} />
-		// 	<input type="text" placeholder="Branch" onChange={(e) => setBatch({ ...batch, branch: e.target.value })} value={batch.branch} />
-		// 	<input type="text" name="domains" placeholder="Domains (comma-separated)" onChange={handleDomainsetChange} value={batch.domainset.join(", ")} />
-		// 	<button onClick={createBatch}>Create Batch</button>
-		// 	<ul>
-		// 		{batches.length !== 0 ? (
-		// 			batches.map((ele) => {
-		// 				return (
-		// 					<li key={ele._id}>
-		// 						year: {ele.year}, branch: {ele.branch}, domainset: {ele.domainset ? ele.domainset.join(", ") : "No domains"}
-		// 						<button onClick={() => router.push("dashboard/" + ele._id)}>GOTO</button>
-		// 					</li>
-		// 				);
-		// 			})
-		// 		) : (
-		// 			<p>no batches</p>
-		// 		)}
-		// 	</ul>
-		// 	{/* add guide */}
-		// 	<br />
-		// 	<input type="text" name="name" placeholder="Name" onChange={(e) => setGuide({ ...guide, name: e.target.value })} />
-		// 	<input type="email" name="email" placeholder="Email" onChange={(e) => setGuide({ ...guide, email: e.target.value })} />
-		// 	<input type="password" name="password" placeholder="Password" onChange={(e) => setGuide({ ...guide, password: e.target.value })} />
-		// 	<input type="text" name="domain" placeholder="Domain" onChange={(e) => setGuide({ ...guide, domain: e.target.value })} />
-		// 	<button onClick={addGuide}>Add Guide</button>
-		// 	<ol>
-		// 		{guides.length !== 0 ? (
-		// 			guides.map((ele) => {
-		// 				return <li key={ele._id}>{ele.name}</li>;
-		// 			})
-		// 		) : (
-		// 			<p>no Guides</p>
-		// 		)}
-		// 	</ol>
-		// </div>
-		<div>
-			<div style={main}>
-				{/* <div style={content}>
-				<AddGuides />
-				<Outlet />
-			</div> */}
-				<div style={content}>
-					<div
-						className="d-flex justify-content-between"
-						style={{
-							marginTop: "10px",
-						}}>
-						<p>Computer Science 2023-24</p>
-					</div>
-					<button onClick={logout}>Logout</button>
-					{/* <GuideSubmissionView /> */}
-					{/* <GuideApproval /> */}
-					{/* <Outlet /> */}
-				</div>
-			</div>
+		<div className="min-vh-100 p-4 bg-dark text-danger">
+			Coordinator dashboard
+			<button onClick={logout}>Logout</button>
+			<br />
+			{/* add batch */}
+			<input type="year" placeholder="Year" onChange={(e) => setBatch({ ...batch, year: e.target.value })} value={batch.year} />
+			<input type="text" placeholder="Branch" onChange={(e) => setBatch({ ...batch, branch: e.target.value })} value={batch.branch} />
+			<button onClick={createBatch}>Create Batch</button>
+			<ul>
+				{batches.length !== 0 ? (
+					batches.map((ele) => {
+						return (
+							<li key={ele._id}>
+								year: {ele.year}, branch: {ele.branch}, domainset: {ele.domainset ? ele.domainset.join(", ") : "No domains"}
+								<button onClick={() => router.push("dashboard/" + ele._id)}>GOTO</button>
+							</li>
+						);
+					})
+				) : (
+					<p>no batches</p>
+				)}
+			</ul>
+			{/* add guide */}
+			<br />
+			<input type="text" name="name" placeholder="Name" onChange={(e) => setGuide({ ...guide, name: e.target.value })} value={guide.name} />
+			<input type="email" name="email" placeholder="Email" onChange={(e) => setGuide({ ...guide, email: e.target.value })} value={guide.email} />
+			<input type="password" name="password" placeholder="Password" onChange={(e) => setGuide({ ...guide, password: e.target.value })} value={guide.password} />
+			<input type="text" name="domain" placeholder="Domain" onChange={(e) => setGuide({ ...guide, domain: e.target.value })} value={guide.domain} />
+			<input type="text" name="branch" placeholder="Branch" onChange={(e) => setGuide({ ...guide, branch: e.target.value })} value={guide.branch} />
+			<button onClick={addGuide}>Add Guide</button>
+			<ol>
+				{guides.length !== 0 ? (
+					guides.map((ele) => {
+						return <li key={ele._id}>{ele.name}</li>;
+					})
+				) : (
+					<p>no Guides</p>
+				)}
+			</ol>
 		</div>
 	);
 }
