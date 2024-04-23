@@ -57,7 +57,7 @@ export async function POST(request) {
 		}
 		// get guides and their domain
 		const guides = [];
-		for (let guide of await User.find({ role: "guide" })) {
+		for (let guide of await User.find({ role: "guide", branch: batch.branch })) {
 			guides.push({ id: guide._id, domain: guide.domain });
 		}
 		// get mapping

@@ -12,7 +12,8 @@ export default function Page() {
 		name: "",
 		email: "",
 		password: "",
-		domainset: [],
+		domain: "",
+		branch: "",
 	});
 
 	const logout = async () => {
@@ -125,12 +126,6 @@ export default function Page() {
 			});
 	};
 
-	// TODO: Needs improvement
-	const handleDomainsetChange = (e) => {
-		const domainsetArray = e.target.value.split(",").map((domainset) => domainset.trim()); // Split the input by comma and trim each domain
-		setBatch({ ...batch, domainset: domainsetArray });
-	};
-
 	useEffect(() => {
 		fetchbatches();
 		fetchGuides();
@@ -143,7 +138,6 @@ export default function Page() {
 			{/* add batch */}
 			<input type="year" placeholder="Year" onChange={(e) => setBatch({ ...batch, year: e.target.value })} value={batch.year} />
 			<input type="text" placeholder="Branch" onChange={(e) => setBatch({ ...batch, branch: e.target.value })} value={batch.branch} />
-			<input type="text" name="domains" placeholder="Domains (comma-separated)" onChange={handleDomainsetChange} value={batch.domainset.join(", ")} />
 			<button onClick={createBatch}>Create Batch</button>
 			<ul>
 				{batches.length !== 0 ? (
@@ -161,10 +155,11 @@ export default function Page() {
 			</ul>
 			{/* add guide */}
 			<br />
-			<input type="text" name="name" placeholder="Name" onChange={(e) => setGuide({ ...guide, name: e.target.value })} />
-			<input type="email" name="email" placeholder="Email" onChange={(e) => setGuide({ ...guide, email: e.target.value })} />
-			<input type="password" name="password" placeholder="Password" onChange={(e) => setGuide({ ...guide, password: e.target.value })} />
-			<input type="text" name="domain" placeholder="Domain" onChange={(e) => setGuide({ ...guide, domain: e.target.value })} />
+			<input type="text" name="name" placeholder="Name" onChange={(e) => setGuide({ ...guide, name: e.target.value })} value={guide.name} />
+			<input type="email" name="email" placeholder="Email" onChange={(e) => setGuide({ ...guide, email: e.target.value })} value={guide.email} />
+			<input type="password" name="password" placeholder="Password" onChange={(e) => setGuide({ ...guide, password: e.target.value })} value={guide.password} />
+			<input type="text" name="domain" placeholder="Domain" onChange={(e) => setGuide({ ...guide, domain: e.target.value })} value={guide.domain} />
+			<input type="text" name="branch" placeholder="Branch" onChange={(e) => setGuide({ ...guide, branch: e.target.value })} value={guide.branch} />
 			<button onClick={addGuide}>Add Guide</button>
 			<ol>
 				{guides.length !== 0 ? (

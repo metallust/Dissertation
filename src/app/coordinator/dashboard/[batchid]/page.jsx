@@ -85,9 +85,6 @@ export default function UserProfile({ params }) {
 			alert(data.message, data.statusCode);
 		}
 	};
-	const createTimeline = async () => {
-		router.push("/coordinator/dashboard/" + params.batchid + "/timelineeditor");
-	};
 
 	return (
 		<div>
