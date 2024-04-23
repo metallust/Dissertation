@@ -51,7 +51,6 @@ export async function POST(request) {
 		const batch = await Batch.findById(batchid);
 		batch.students.push(student._id);
 		await batch.save();
-		``;
 
 		//add user id in disseration
 		const disseration = new Dissertation({

@@ -20,11 +20,16 @@ const batchSchema = new mongoose.Schema({
 		type: [mongoose.Schema.Types.ObjectId],
 		required: false,
 	},
-	// mapping of guide and student
-	mapping: {
-		type: Map,
+	timeline: {
+		type: Object,
 		required: false,
 	},
+	// mapping of guide and student
+	mapping: {
+		type: Object,
+		required: false,
+	},
+
 	domainset: {
 		type: [String], // Assuming domainset is an array of strings
 		required: false,

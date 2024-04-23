@@ -15,6 +15,7 @@
 	},
 	"dependencies": {
 		"bcryptjs": "^2.4.3",
+		"framer-motion": "^11.1.7",
 		"jose": "^5.2.4",
 		"jsonwebtoken": "^9.0.2",
 		"mongoose": "^8.2.4",
@@ -22,13 +23,14 @@
 		"nodemailer": "^6.9.13",
 		"react": "^18",
 		"react-dom": "^18",
+		"react-google-chart": "^0.1.2",
 		"react-hot-toast": "^2.4.1"
 	},
 	"devDependencies": {
 		"eslint": "^8",
 		"eslint-config-next": "14.1.4",
 		"eslint-config-prettier": "^9.1.0",
-		"prettier": "^3.2.5",
-		"husky": "^8.0.0"
+		"husky": "^8.0.0",
+		"prettier": "^3.2.5"
 	}
 }

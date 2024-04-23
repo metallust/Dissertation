@@ -15,6 +15,23 @@ const disserationSchema = new mongoose.Schema({
 		required: [true, "Please provide a student id"],
 		unique: true,
 	},
+	stage: {
+		type: String,
+		enum: ["domainselection", "ideasubmission"],
+		default: "domainselection",
+	},
+	preferences: {
+		type: [String],
+		default: [],
+	},
+	guide: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "users",
+	},
+	ideas: {
+		type: Object,
+		default: [],
+	},
 });
 
 const Dissertation = mongoose.models.disserations || mongoose.model("disserations", disserationSchema);

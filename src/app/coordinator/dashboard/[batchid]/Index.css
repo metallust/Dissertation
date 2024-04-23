@@ -1,0 +1,46 @@
+.addnode {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background-color: rgb(209, 209, 209);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	background-color: #e1f8ff;
+	box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.4);
+}
+
+.addnode:hover {
+	transform: scale(1.1);
+	box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.4);
+}
+
+.node {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background-color: #004256;
+	cursor: pointer;
+}
+
+.node p {
+	color: white;
+	font-size: 12px;
+	font-weight: bold;
+	margin: 0px 7px;
+}
+
+.node:hover {
+	background-color: rgb(255, 85, 85);
+	transform: scale(1.1);
+	color: white;
+}
+
+.node-title {
+	font-size: 12px;
+	font-weight: bold;
+	color: rgb(0, 0, 0);
+	transform: translate(-40%, 0%);
+	text-wrap: nowrap;
+}
