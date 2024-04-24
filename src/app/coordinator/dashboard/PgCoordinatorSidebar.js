@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import Link from "next/link";
+
 const PgCoordinatorSidebar = () => {
 	const card = {
 		height: "150px",
@@ -145,17 +147,11 @@ const PgCoordinatorSidebar = () => {
 				</div>
 			</div>
 			<div className="d-flex flex-column mt-2">
-				<div style={{ backgroundColor: "#004257", color: "white" }} className="btn mb-2" to={"/pg/addstudent"}>
-					Add Student
-				</div>
 				<div style={{ backgroundColor: "#004257", color: "white" }} className="btn mb-2" to={"/pg/addguide"}>
 					Add Guide
 				</div>
 				<div style={{ backgroundColor: "#004257", color: "white" }} className="btn mb-2" to={"/pg/addcommittee"}>
-					Add Committee
-				</div>
-				<div style={{ backgroundColor: "#004257", color: "white" }} className="btn mb-2">
-					Add Timeline
+					Add Batch
 				</div>
 			</div>
 		</div>
