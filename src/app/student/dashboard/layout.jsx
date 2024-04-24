@@ -4,6 +4,7 @@ import "./Index.css";
 import Sidebar from "./Sidebar";
 import Rightbar from "./Rightbar";
 import { useRouter } from "next/navigation";
+import Timeline from "./Timeline";
 import { useEffect } from "react";
 
 export default function Layout({ children }) {
@@ -14,13 +15,15 @@ export default function Layout({ children }) {
 			const data = await response.json();
 			console.log("Successfully fetched dissertation", data.data.stage);
 
-			if (data.data.stage === "domainselection") {
-				router.push("/student/dashboard/setup/");
-			} else if (data.data.stage === "ideasubmission") {
-				router.push("/student/dashboard/topicselection");
-			} else {
-				router.push("/student/dashboard");
-			}
+			// if (data.data.stage === "domainselection") {
+			// 	router.push("/student/dashboard/setup/");
+			// } else if (data.data.stage === "ideasubmission") {
+			// 	router.push("/student/dashboard/topicselection");
+			// } else if (data.data.stage === "submissions") {
+			// 	router.push("/student/dashboard/submissions");
+			// } else {
+			// 	router.push("/student/dashboard");
+			// }
 		} else {
 			alert(data.message, data.status);
 		}
@@ -50,7 +53,35 @@ export default function Layout({ children }) {
 				<Sidebar announcements={announcements} todos={todos} />
 			</div>
 
-			<div className="content">{children}</div>
+			<div className="content">
+				<Timeline
+					n={5}
+					complete={3}
+					descriptions={[
+						{
+							title: "Synopsis",
+							position: 1,
+						},
+						{
+							title: "Research",
+							position: 1,
+						},
+						{
+							title: "Implementation",
+							position: 1,
+						},
+						{
+							title: "Reports",
+							position: 1,
+						},
+						{
+							title: "Publication",
+							position: 1,
+						},
+					]}
+				/>
+				{children}
+			</div>
 
 			{/* rightbar */}
 			<div className="rightbar">
