@@ -57,7 +57,7 @@ export async function POST(request) {
 		}
 		// get guides and their domain
 		const guides = [];
-		for (let guide of await User.find({ role: "guide" })) {
+		for (let guide of await User.find({ role: "guide", branch: batch.branch })) {
 			guides.push({ id: guide._id, domain: guide.domain });
 		}
 		// get mapping
@@ -66,6 +66,15 @@ export async function POST(request) {
 		// reconstruct mapping
 		let newMapping = [];
 		for (const [key, value] of Object.entries(mapping)) {
+			for (let i = 0; i < value.length; i++) {
+				const student = value[i];
+				const dissertations = await Dissertation.find({ studentid: student });
+				const dissertation = dissertations[0];
+				dissertation.guide = key;
+				dissertation.stage = "ideasubmission";
+				await dissertation.save();
+			}
+
 			newMapping.push({
 				guide: key,
 				students: value,

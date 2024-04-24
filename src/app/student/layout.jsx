@@ -1,11 +1,14 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Layout({ children }) {
 	const router = useRouter();
+	const path = usePathname();
 	useEffect(() => {
-		router.push("/student/dashboard");
+		if (path === "/student") {
+			router.push("/student/dashboard");
+		}
 	}, [router]);
 	return children;
 }

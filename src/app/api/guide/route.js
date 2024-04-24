@@ -34,7 +34,7 @@ export async function POST(request) {
 		}
 		//TODO: get the college of the coordinator
 
-		const { name, email, password, domain } = await request.json();
+		const { name, email, password, domain, branch } = await request.json();
 		// check if email is already present
 		const guideExist = await User.findOne({ email: email });
 		if (guideExist) {
@@ -52,6 +52,7 @@ export async function POST(request) {
 			password: hashedPassword,
 			role: "guide",
 			domain: domain,
+			branch: branch,
 		});
 		await guide.save();
 		return NextResponse.json(new Response(200, "Successfull created", guide._id), { status: 200 });

@@ -25,7 +25,6 @@ export async function POST(request) {
 		preferences.forEach((element) => {
 			dissertation.preferences.push(element);
 		});
-		dissertation.stage = "ideasubmission";
 		await dissertation.save();
 		return NextResponse.json(new Response(200, "Preferences set successfully", null), { status: 200 });
 	} catch (error) {
