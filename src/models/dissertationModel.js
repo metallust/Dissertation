@@ -36,6 +36,9 @@ const disserationSchema = new mongoose.Schema({
 		type: Object,
 		default: [],
 	},
+	finalidea: {
+		type: String,
+	}
 });
 
 const Dissertation = mongoose.models.disserations || mongoose.model("disserations", disserationSchema);

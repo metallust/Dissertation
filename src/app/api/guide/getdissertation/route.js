@@ -30,3 +30,30 @@ export async function POST(request) {
         return NextResponse.json({ error: error.data }, { status: 400 });
     }
 }
+
+export async function PUT(request) {
+    try {
+        const { id, idea } = await request.json();
+        // console.log(userid)
+        const token = request.cookies.get("token")?.value;
+        if (!token) {
+            return NextResponse.redirect(new URL("/login", request.nextUrl));
+        }
+        const dissertation = await Dissertation.findOne({ studentid: id });
+        if (!dissertation) {
+            return NextResponse.json(
+                new Response(404, "Dissertation data not found", null),
+                { status: 404 },
+            );
+        }
+        console.log(idea)
+        dissertation.finalidea = idea;
+        dissertation.stage = "submissions";
+        await dissertation.save();
+        return NextResponse.json(new Response(200, "Idea Saved", dissertation), {
+            status: 200,
+        });
+    } catch (error) {
+        return NextResponse.json({ error: error.data }, { status: 400 });
+    }
+}
