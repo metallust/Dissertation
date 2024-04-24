@@ -10,9 +10,10 @@ function PgRightbar() {
 			<div
 				style={{
 					backgroundColor: "#E1F8FF",
-					marginTop: "10px",
-					borderRadius: "10px",
-					padding: "20px",
+					marginTop: "16px",
+					marginRight: "16px",
+					borderRadius: "8px",
+					padding: "20px 12px 20px 12px",
 					margin: "10px",
 					display: "flex",
 					justifyContent: "space-between",
@@ -51,19 +52,19 @@ function PgRightbar() {
 				className="container d-flex flex-column align-items-center "
 				style={{
 					backgroundColor: "#E1F8FF",
-					maxWidth: "130px",
+					maxWidth: "134px",
 					height: "85vh",
+					marginRight: "16px",
 					borderRadius: "10px",
 					border: "none",
-					padding: "10px",
+					padding: "24px",
 					boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
 					background: "#E1F8FF",
 					textAlign: "center",
-
-					fontWeight: "550",
+					fontWeight: "600",
 					color: "#004257",
 					display: "flex",
-					justifyContent: "space-between",
+					justifyContent: "space-around",
 				}}>
 				<div className="btn btn-transparent d-flex flex-column align-items-center fs-7 ">
 					<svg width="25" height="25" viewBox="0 0 27 26" fill="none" xmlns="http://www.w3.org/2000/svg">
