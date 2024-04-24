@@ -148,14 +148,14 @@ const PgCoordinatorSidebar = () => {
 					</ul>
 				</div>
 			</div>
-			<div className="d-flex flex-column mt-2">
+			{/* <div className="d-flex flex-column mt-2">
 				<button style={{ backgroundColor: "#004257", color: "white" }} className="btn mb-2" onClick={() => router.push("/coordinator/dashboard/addGuide")}>
 					Add Guide
 				</button>
 				<button style={{ backgroundColor: "#004257", color: "white" }} className="btn mb-2" to={"/pg/addcommittee"}>
 					Add Batch
 				</button>
-			</div>
+			</div> */}
 		</div>
 	);
 };
