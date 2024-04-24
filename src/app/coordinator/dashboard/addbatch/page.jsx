@@ -10,9 +10,10 @@ export default function Page() {
     const [saved, setSaved] = useState(true);
     const router = useRouter();
 
+
     const fetchBatches = async () => { // Renamed function to fetch batches
         try {
-            const response = await fetch("/api/dissertation/batches", { // Adjusted API endpoint
+            const response = await fetch("/api/batch", { // Adjusted API endpoint
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -20,7 +21,7 @@ export default function Page() {
             });
             const json = await response.json();
             if (json.statusCode === 200) {
-                console.log("Fetched batches successfully");
+                console.log("Fetched batches successfully", json);
                 setBatches(json.data); // Updated state variable
             } else {
                 alert("Error in fetching batches: " + json.message);

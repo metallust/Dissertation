@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const PgCoordinatorSidebar = () => {
+	const router = useRouter()
 	const card = {
 		height: "150px",
 		width: "100%",
@@ -147,12 +149,12 @@ const PgCoordinatorSidebar = () => {
 				</div>
 			</div>
 			<div className="d-flex flex-column mt-2">
-				<div style={{ backgroundColor: "#004257", color: "white" }} className="btn mb-2" to={"/pg/addguide"}>
+				<button style={{ backgroundColor: "#004257", color: "white" }} className="btn mb-2" onClick={() => router.push("/coordinator/dashboard/addGuide")}>
 					Add Guide
-				</div>
-				<div style={{ backgroundColor: "#004257", color: "white" }} className="btn mb-2" to={"/pg/addcommittee"}>
+				</button>
+				<button style={{ backgroundColor: "#004257", color: "white" }} className="btn mb-2" to={"/pg/addcommittee"}>
 					Add Batch
-				</div>
+				</button>
 			</div>
 		</div>
 	);

@@ -1,7 +1,10 @@
 import React, { useRef, useState } from "react";
 import BatchItem from "./BatchItem";
+import { useRouter } from "next/navigation";
+
 
 function Batches({ batches, editBatch, deleteBatch, addBatch }) {
+    const router = useRouter();
     const ref = useRef(null);
     const [newBatch, setNewBatch] = useState({ year: "", branch: "" });
 
@@ -66,9 +69,21 @@ function Batches({ batches, editBatch, deleteBatch, addBatch }) {
             {/* list of batches */}
             <h2>Batches</h2>
             <div className="row my-3">
-                {batches.map((batch, index) => (
-                    <BatchItem batch={batch} key={index} editBatch={() => updateBatch(index, batch)} deleteBatch={() => deleteBatch(index)} />
-                ))}
+                <ul>
+				{batches.length !== 0 ? (
+					batches.map((ele) => {
+						return (
+							<li key={ele._id}>
+								year: {ele.year}, branch: {ele.branch}
+								<button onClick={() => {
+                                    return router.push("../dashboard/batch/" + ele._id)}}>GOTO</button>
+							</li>
+						);
+					})
+				) : (
+					<p>no batches</p>
+				)}
+			</ul>
             </div>
         </>
     );

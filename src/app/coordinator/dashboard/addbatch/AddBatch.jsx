@@ -77,6 +77,7 @@ const AddBatch = ({ addBatch }) => {
                         </button>
                     </form>
                 </div>
+                
             </div>
         </>
     );
