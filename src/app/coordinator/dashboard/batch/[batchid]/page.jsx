@@ -87,30 +87,54 @@ export default function UserProfile({ params }) {
 	};
 
 	return (
-		<div>
-			<h1>Batch</h1>
-			<p>Batch ID: {params.batchid}</p>
-			<p>Batch year: {batch.year}</p>
-			<p>Batch branch: {batch.branch}</p>
-			<button onClick={mapStudentGuide}>Allocate Student Guide</button>
-			{batch.mapping ? <Mapping mapping={batch.mapping} /> : <p>Mapping not found</p>}
+		<div style={{ backgroundColor: "#e1f8ff", padding: "20px", borderRadius: "10px", boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}>
+    <h1 style={{ color: "#004257" }}>Batch</h1>
+    <p style={{ color: "#004257" }}>Batch ID: {params.batchid}</p>
+    <p style={{ color: "#004257" }}>Batch year: {batch.year}</p>
+    <p style={{ color: "#004257" }}>Batch branch: {batch.branch}</p>
+    <button style={{ backgroundColor: "#004257", color: "#fff", padding: "10px", borderRadius: "5px", border: "none", cursor: "pointer" }} onClick={mapStudentGuide}>Allocate Student Guide</button>
+    {batch.mapping ? <Mapping mapping={batch.mapping} /> : <p style={{ color: "#004257" }}>Mapping not found</p>}
 
-			<input type="text" name="name" placeholder="Name" onChange={(e) => setStudent({ ...student, name: e.target.value })} value={student.name} />
-			<input type="email" name="email" placeholder="Email" onChange={(e) => setStudent({ ...student, email: e.target.value })} value={student.email} />
-			<input type="password" name="password" placeholder="Password" onChange={(e) => setStudent({ ...student, password: e.target.value })} value={student.password} />
-			<button onClick={addStudent}>Add student</button>
-			<ul>
-				{students.length !== 0 ? (
-					students.map((ele) => {
-						return <li key={ele._id}>{ele.name}</li>;
-					})
-				) : (
-					<p>no Students</p>
-				)}
-			</ul>
-			<h4>Timeline Editor</h4>
-			<Index batchid={params.batchid} />
-		</div>
+    <input
+        type="text"
+        name="name"
+        placeholder="Name"
+        style={{ width: "100%", padding: "10px", marginBottom: "10px", borderRadius: "5px", border: "1px solid #004257" }}
+        onChange={(e) => setStudent({ ...student, name: e.target.value })}
+        value={student.name}
+    />
+    <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        style={{ width: "100%", padding: "10px", marginBottom: "10px", borderRadius: "5px", border: "1px solid #004257" }}
+        onChange={(e) => setStudent({ ...student, email: e.target.value })}
+        value={student.email}
+    />
+    <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        style={{ width: "100%", padding: "10px", marginBottom: "10px", borderRadius: "5px", border: "1px solid #004257" }}
+        onChange={(e) => setStudent({ ...student, password: e.target.value })}
+        value={student.password}
+    />
+    <button style={{ backgroundColor: "#004257", color: "#fff", padding: "10px", borderRadius: "5px", border: "none", cursor: "pointer", marginBottom: "20px" }} onClick={addStudent}>Add student</button>
+	<h4 style={{ color: "#004257" }}>Students :</h4>
+	
+    <ul style={{ listStyleType: "none", padding: "0", margin: "0" }}>
+        {students.length !== 0 ? (
+            students.map((ele) => {
+                return <li key={ele._id}>{ele.name}</li>;
+            })
+        ) : (
+            <p style={{ color: "#004257" }}>no Students</p>
+        )}
+    </ul>
+    <h4 style={{ color: "#004257" }}>Timeline Editor</h4>
+    <Index batchid={params.batchid} />
+</div>
+
 	);
 }
 
