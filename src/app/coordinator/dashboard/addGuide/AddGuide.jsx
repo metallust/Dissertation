@@ -68,19 +68,19 @@ const AddGuide = ({ addGuide }) => {
 		<>
 			<div className="login-box" style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh" }}>
 				<div className="card border" style={cardStyle}>
-					<p style={headerStyle}>Add Guide</p>
+					<p style={headerStyle}>Enter Guide Details</p>
 					<form onSubmit={handleAdd}>
 						<div className="mb-3">
-							<input type="text" placeholder="Enter Name" className="form-control" id="name" name="name" value={guide.name} onChange={onChange} style={inputStyle} required />
+							<input type="text" placeholder="Guide Name" className="form-control" id="name" name="name" value={guide.name} onChange={onChange} style={inputStyle} required />
 						</div>
 						<div className="mb-3">
-							<input type="email" placeholder="Enter Email" className="form-control" id="email" name="email" value={guide.email} onChange={onChange} style={inputStyle} required />
+							<input type="email" placeholder="Email" className="form-control" id="email" name="email" value={guide.email} onChange={onChange} style={inputStyle} required />
 						</div>
 						<div className="mb-3">
-							<input type="password" placeholder="Enter Password" className="form-control" id="password" name="password" value={guide.password} onChange={onChange} minLength={3} style={inputStyle} required />
+							<input type="password" placeholder="Create Password" className="form-control" id="password" name="password" value={guide.password} onChange={onChange} minLength={3} style={inputStyle} required />
 						</div>
 						<div className="mb-3">
-							<input type="text" placeholder="Enter Domain" className="form-control" id="domain" name="domain" value={guide.domain} onChange={onChange} style={inputStyle} required />
+							<input type="text" placeholder="Domain of Expertise" className="form-control" id="domain" name="domain" value={guide.domain} onChange={onChange} style={inputStyle} required />
 						</div>
 						<div className="mb-3">
 							<input type="text" placeholder="Enter Branch" className="form-control" id="branch" name="branch" value={guide.branch} onChange={onChange} style={inputStyle} required />
