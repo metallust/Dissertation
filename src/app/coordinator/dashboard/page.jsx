@@ -101,7 +101,7 @@ export default function Page() {
 				if (data.statusCode === 200) {
 					setBatches(data.data);
 				} else {
-					alert(data.message, data.status);
+					console.error(data.message, data.status);
 				}
 			})
 			.catch((err) => {
