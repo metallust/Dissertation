@@ -108,10 +108,6 @@ export default function Home() {
 								<input placeholder="Enter Password" id="password" type="password"  style={inputStyle}
 							className="form-control" minLength={3} maxLength={8} required name="password" value={info.password} onChange={onchange} />
 							</div>
-							<div className="mb-3">
-							<input placeholder="Enter Domains  {eg CSE, IT etc.}" id="domains" type="text"  style={inputStyle}
-							className="form-control"  required name="domains" value={info.domain} onChange={onchange} />
-							</div>
 							<div className="w-100 text-center">
 								<button type="submit" className="submitbullon" style={buttonstyle}>
 									Sign up

@@ -1,75 +1,105 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import AddNote from "./AddNote";
-import Notes from "./Notes";
+import AddStudent from "./AddStudent";
+import Students from "./Students";
 import { useEffect, useState } from "react";
 
 export default function Page() {
-	const [notes, setNotes] = useState([]);
-	const [saved, setSaved] = useState(true);
-	const router = useRouter();
-	const fetchNotes = async () => {
-		const response = await fetch("/api/dissertation/ideaselection", {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		});
-		const json = await response.json();
-		if (json.statusCode === 200) {
-			console.log("fetched notes successfully");
-			setNotes(json.data);
-		} else {
-			alert("Error in fetching notes" + json.message, "danger");
-		}
-	};
+    const [students, setStudents] = useState([]);
+    const [saved, setSaved] = useState(true);
+    const router = useRouter();
 
-	useEffect(() => {
-		fetchNotes();
-	}, []);
+    const fetchStudents = async () => {
+        try {
+            const response = await fetch("/api/students", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            const json = await response.json();
+            if (json.statusCode === 200) {
+                console.log("Fetched students successfully");
+                setStudents(json.data);
+            } else {
+                alert("Error in fetching students: " + json.message);
+            }
+        } catch (error) {
+            console.error("Error in fetching students:", error);
+            alert("Error in fetching students: " + error.message);
+        }
+    };
 
-	const addNote = (note) => {
-		setSaved(false);
-		setNotes([...notes, note]);
-	};
-	const editNote = (i, note) => {
-		setSaved(false);
-		const newNotes = [...notes];
-		newNotes[i] = note;
-		setNotes(newNotes);
-	};
-	const deleteNote = (i) => {
-		setSaved(false);
-		const newNotes = [...notes];
-		newNotes.splice(i, 1);
-		setNotes(newNotes);
-	};
-	const save = async () => {
-		console.log(notes);
-		setSaved(true);
-		const response = await fetch("/api/dissertation/ideaselection", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(notes),
-		});
-		const json = await response.json();
-		if (json.statusCode === 200) {
-			console.log("saved ideas successfully");
-		} else {
-			alert("Error in saving ideas " + json.message, "danger");
-		}
-	};
-	return (
-		<div className="container">
-			<AddNote addNote={addNote} />
-			<Notes notes={notes} editNote={editNote} deleteNote={deleteNote} />
+    useEffect(() => {
+        fetchStudents();
+    }, []);
 
-			<button className="btn btn-primary mx-2" onClick={save}>
-				{saved ? "Saved" : "Save"}
-			</button>
-		</div>
-	);
+    const addStudent = (student) => {
+        setSaved(false);
+        setStudents([...students, student]);
+    };
+
+    const editStudent = (i, student) => {
+        setSaved(false);
+        const newStudents = [...students];
+        newStudents[i] = student;
+        setStudents(newStudents);
+    };
+
+    const deleteStudent = (i) => {
+        setSaved(false);
+        const newStudents = [...students];
+        newStudents.splice(i, 1);
+        setStudents(newStudents);
+    };
+
+	const buttonStyle ={
+		 width: "176px",
+        height: "50px",
+        padding: "10px",
+        backgroundColor: "#004257",
+        borderRadius: "10px",
+        border: "none",
+        color: "#fff",
+        fontSize: "20px",
+        fontWeight: "500",
+        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px 0px 4px rgba(0, 0, 0, 0.25)",
+        marginBottom: "20px",
+        cursor: "pointer",
+	}
+
+    const save = async () => {
+        try {
+            console.log(students);
+            setSaved(true);
+            const response = await fetch("/api/students", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(students),
+            });
+            const json = await response.json();
+            if (json.statusCode === 200) {
+                console.log("Saved students successfully");
+            } else {
+                alert("Error in saving students: " + json.message);
+            }
+        } catch (error) {
+            console.error("Error in saving students:", error);
+            alert("Error in saving students: " + error.message);
+        }
+    };
+
+    return (
+        <div className="container">
+            <AddStudent addStudent={addStudent} />
+            <Students students={students} editStudent={editStudent} deleteStudent={deleteStudent} />
+
+            <button className="savebuttonn"  style={buttonStyle} onClick={save}>
+                {saved ? "Saved" : "Save"}
+            </button>
+        </div>
+    );
 }

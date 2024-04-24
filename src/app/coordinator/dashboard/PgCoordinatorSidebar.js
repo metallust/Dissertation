@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 const PgCoordinatorSidebar = () => {
+	const router = useRouter();
 	const card = {
-		height: "150px",
+		height: "200px",
 		width: "100%",
 		maxWidth: "300px",
 		backgroundColor: "#E1F8FF",
-		borderRadius: "10px",
-		padding: "0px 10px ",
-		margin: "10px 10px 10px 10px",
-		boxShadow: "0px 3px 4px 0px rgba(0,0,0,0.4)",
+		borderRadius: "8px",
+		padding: "8px 16px",
+		margin: "8px 8px 8px 24px",
+		boxShadow: "0px 3px 3px 0px rgba(0,0,0,0.2)",
 		position: "relative",
 		overflow: "hidden",
 	};
@@ -21,7 +25,7 @@ const PgCoordinatorSidebar = () => {
 		left: "0",
 		position: "absolute",
 		width: "100%",
-		padding: "5px 20px",
+		padding: "16px 20px",
 		backgroundColor: "#e1f8ff",
 	};
 
@@ -53,7 +57,7 @@ const PgCoordinatorSidebar = () => {
 				style={{
 					fontWeight: "700",
 					marginBottom: "20px",
-					marginTop: "20px",
+					marginTop: "24px",
 				}}>
 				<div to={"/pg"} style={{ color: "#004257", textDecoration: "none" }}>
 					ResearchHouse
@@ -86,7 +90,7 @@ const PgCoordinatorSidebar = () => {
 			<div style={card}>
 				<div style={title}>Departments</div>
 				<div style={body}>
-					<div style={{ height: "30px" }}></div>
+					<div style={{ height: "48px" }}></div>
 
 					<ul className="list-group">
 						{departments.map((dept, index) => {
@@ -111,20 +115,20 @@ const PgCoordinatorSidebar = () => {
 
 			<div
 				style={{
-					height: "110px",
+					height: "180px",
 					width: "100%",
 					maxWidth: "300px",
 					backgroundColor: "#E1F8FF",
-					borderRadius: "10px",
-					padding: "0px 10px ",
-					margin: "10px 10px 10px 10px",
-					boxShadow: "0px 3px 4px 0px rgba(0,0,0,0.4)",
+					borderRadius: "12px",
+					padding: "8px 16px ",
+					margin: "8px 8px 8px 24px",
+					boxShadow: "0px 3px 4px 0px rgba(0,0,0,0.2)",
 					position: "relative",
 					overflow: "hidden",
 				}}>
 				<div style={title}>Batches</div>
 				<div style={{ body }}>
-					<div style={{ height: "30px" }}></div>
+					<div style={{ height: "48px" }}></div>
 					<ul className="list-group">
 						{batches.map((batch, index) => {
 							return (
@@ -142,20 +146,6 @@ const PgCoordinatorSidebar = () => {
 							);
 						})}
 					</ul>
-				</div>
-			</div>
-			<div className="d-flex flex-column mt-2">
-				<div style={{ backgroundColor: "#004257", color: "white" }} className="btn mb-2" to={"/pg/addstudent"}>
-					Add Student
-				</div>
-				<div style={{ backgroundColor: "#004257", color: "white" }} className="btn mb-2" to={"/pg/addguide"}>
-					Add Guide
-				</div>
-				<div style={{ backgroundColor: "#004257", color: "white" }} className="btn mb-2" to={"/pg/addcommittee"}>
-					Add Committee
-				</div>
-				<div style={{ backgroundColor: "#004257", color: "white" }} className="btn mb-2">
-					Add Timeline
 				</div>
 			</div>
 		</div>
