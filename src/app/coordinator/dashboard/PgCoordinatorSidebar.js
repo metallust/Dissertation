@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -148,13 +149,13 @@ const PgCoordinatorSidebar = () => {
 				</div>
 			</div>
 			<div className="d-flex flex-column mt-2">
-				<button style={{ backgroundColor: "#004257", color: "white" }} className="btn mb-2" onClick={() => router.push("/coordinator/dashboard/addGuide")}>
+				<button style={{ boxShadow: "0px 3px 3px 0px rgba(0,0,0,0.2)", borderRadius: "8px", marginTop: "0px", marginLeft: "14px", padding: "8px 64px", backgroundColor: "#004257", color: "white" }} className="btn mb-2" onClick={() => router.push("/coordinator/dashboard/addGuide")}>
 					Add Guide
 				</button>
 				<button style={{ boxShadow: "0px 3px 3px 0px rgba(0,0,0,0.2)", borderRadius: "8px", marginTop: "8px", marginLeft: "14px", padding: "8px 64px", backgroundColor: "#004257", color: "white" }} className="btn mb-2" to={"/pg/addcommittee"}>
 					Add Batch
 				</button>
-			</div> */}
+			</div>
 		</div>
 	);
 };
