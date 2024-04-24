@@ -2,15 +2,12 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Rightbar from "./PgRightbar";
-import PgCoordinatorSidebar from "./PgCoordinatorSidebar";
-import PgRightbar from "./PgRightbar";
 
 export default function Page() {
 	const router = useRouter();
 	const [batches, setBatches] = useState([]);
 	const [guides, setGuides] = useState([]);
-	const [batch, setBatch] = useState({ year: "", branch: "", domainset: [] });
+	const [batch, setBatch] = useState({ year: "", branch: "" });
 	const [guide, setGuide] = useState({
 		name: "",
 		email: "",
@@ -37,8 +34,8 @@ export default function Page() {
 	};
 
 	const createBatch = async () => {
-		if (batch.year === "" || batch.branch === "" || batch.domainset.length === 0) {
-			alert("Please provide a year, branch, and at least one domain");
+		if (batch.year === "" || batch.branch === "") {
+			alert("Please provide a year, branch");
 			console.log(batch);
 			return;
 		}
@@ -133,55 +130,6 @@ export default function Page() {
 		fetchbatches();
 		fetchGuides();
 	}, []);
-
-	const buttonstyle = {
-		background: "none",
-		border: "none",
-	};
-
-	const sidebar = {
-		display: "block",
-		/* background: rgba(0, 0, 0, 0.2), */
-		maxWidth: "280px",
-		flexGrow: "4",
-		overflow: "hidden",
-		overflowY: "scroll",
-	};
-	const main = {
-		display: "flex",
-		height: "100vh",
-	};
-	const content = {
-		display: "block",
-		/* background: rgba(0, 0, 0, 0.4), */
-		flexGrow: "3",
-		overflow: "hidden",
-		overflowY: "scroll",
-	};
-	const rightbar = {
-		background: "rgba(255, 255, 255, 0.2)",
-		minWidth: "140px",
-		maxWidth: "200px",
-		flexGrow: "1",
-		overflow: "hidden",
-		overflowY: "scroll",
-	};
-	const btnstyle = {
-		width: "fit-content",
-		height: "40px",
-		padding: "10px",
-		backgroundColor: "#004257",
-		borderRadius: "10px",
-		border: "none",
-		color: "#fff",
-		fontSize: "16px",
-		fontWeight: "400",
-		boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px 0px 4px rgba(0, 0, 0, 0.25)",
-		fontFamily: "Roboto, sans-serif",
-		marginBottom: "20px",
-		marginRight: "10px",
-	};
-
 	return (
 		<div className="min-vh-100 p-4 bg-dark text-danger">
 			Coordinator dashboard
@@ -196,7 +144,7 @@ export default function Page() {
 					batches.map((ele) => {
 						return (
 							<li key={ele._id}>
-								year: {ele.year}, branch: {ele.branch}, domainset: {ele.domainset ? ele.domainset.join(", ") : "No domains"}
+								year: {ele.year}, branch: {ele.branch}
 								<button onClick={() => router.push("dashboard/batch/" + ele._id)}>GOTO</button>
 							</li>
 						);
