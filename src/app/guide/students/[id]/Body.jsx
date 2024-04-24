@@ -50,12 +50,11 @@ const Body = (props) => {
 								onClick={() => setSelectidea(ind)}
 								style={ind !== selectidea ? { backgroundColor: "#e1f8ff", padding: "3px 10px", margin: "14px 0", width: "50vw", borderRadius: "11px" } : { backgroundColor: "#004257", color: "white", padding: "3px 10px", margin: "14px 0", width: "50vw", borderRadius: "11px" }}>
 								<h5>{idea.title}</h5>
-								<p style={ind !== selectidea ? { display:"none" } : {}}>
-									{idea.description}
-								</p>
+								<p style={ind !== selectidea ? { display: "none" } : {}}>{idea.description}</p>
 							</div>
 						);
 					})}
+					<button style={{ backgroundColor: "#004257 ", color: "white", border: "none", padding: "3px 10px", borderRadius: "7px", justifyContent: "center" }}>Select Idea</button>
 				</div>
 			) : (
 				""

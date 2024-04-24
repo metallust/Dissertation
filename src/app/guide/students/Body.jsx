@@ -17,7 +17,7 @@ const Body = () => {
 				if (data.statusCode === 200) {
 					setGuide(data.data);
 					// console.log(data.data);
-					fetchbatches(data.data.branch);
+					fetchbatches(data.data);
 				} else {
 					alert(data.message, data.status);
 				}
@@ -28,16 +28,16 @@ const Body = () => {
 		// return user;
 	};
 
-	const fetchbatches = async (branch) => {
+	const fetchbatches = async (bat) => {
 		try {
 			const res = await fetch("/api/batch/", {
 				method: "GET",
 			});
 			const data = await res.json();
 			if (data.statusCode === 200) {
-				var batches = await data.data.filter((ele) => ele.branch === branch);
-				setBatches(batches);
-				handleBatch(batches[selectedbranch].year, selectedbranch);
+				var x = await data.data.filter((ele) => ele.branch === bat.branch);
+				setBatches(x);
+				handleBatch(x[selectedbranch], bat._id);
 				// console.log("fetch batch", batches, data.data);
 			} else {
 				console.log(data.message, data.status);
@@ -47,14 +47,15 @@ const Body = () => {
 		}
 	};
 
-	const handleBatch = (year) => {
+	const handleBatch = async (batch, id) => {
 		// setSelectedbranch(i);
 		try {
-			// console.log(batches);
-			const filteredBatch = batches.filter((b) => b.year === year);
+			console.log(batch);
+			// const filteredBatch = batch.filter((b) => b.year === batch[selectedbranch].year);
 			// console.log(filteredBatch);
-			const mapping = filteredBatch[0].mapping.filter((m) => m.guide === guide._id);
+			const mapping = await batch.mapping.filter((m) => m.guide === id);
 			// console.log(mapping[0].students);
+			// console.log(mapping);
 			setStudents(mapping[0].students);
 		} catch (err) {
 			console.log("error", err);
@@ -65,7 +66,7 @@ const Body = () => {
 		getUser();
 		// handleBatch(batches[selectedbranch].year, selectedbranch);
 		// console.log(batches[selectedbranch]);
-	});
+	}, [selectedbranch]);
 
 	const router = useRouter();
 	return (
@@ -77,6 +78,7 @@ const Body = () => {
 							key={ind}
 							onClick={() => {
 								setSelectedbranch(ind);
+								// handleBatch(batch.year);
 							}}
 							style={
 								selectedbranch === ind
