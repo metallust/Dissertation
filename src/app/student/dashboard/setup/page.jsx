@@ -87,6 +87,7 @@ export default function DomainSelectionPage() {
 				pref2: "",
 				pref3: "",
 			});
+			alert("Preference Saved");
 		} catch (error) {
 			console.log(error);
 		}

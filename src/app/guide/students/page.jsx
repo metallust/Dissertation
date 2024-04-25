@@ -2,11 +2,11 @@
 
 import { useRouter } from "next/navigation";
 
-import GuideSidebar from "../GuideSidebar";
 // import AddGuides from "../pgCoordinator/AddGuides";
 import GuideRightbar from "../GuideRightbar";
 // import GuideAnalytics from "./GuideAnalytics";
 // import GuideApproval from "./GuideApproval";
+import "./Index.css";
 
 import Body from "./Body";
 
@@ -23,7 +23,7 @@ export default function Page() {
 	const main = {
 		display: "flex",
 		height: "100vh",
-        overflowY:"hidden"
+		overflowY: "hidden",
 	};
 	const content = {
 		display: "block",
@@ -31,15 +31,15 @@ export default function Page() {
 		flexGrow: "9",
 		// overflow: "hidden",
 		overflowY: "scroll",
-        // height : "100dvh",
-        // background:"black"
+		// height : "100dvh",
+		// background:"black"
 	};
 	const rightbar = {
 		maxWidth: "160px",
-        flexGrow: "1",
-        overflow: "hidden",
-        overflowY: "scroll",
-        scrollbarWidth: "none",
+		flexGrow: "1",
+		overflow: "hidden",
+		overflowY: "scroll",
+		scrollbarWidth: "none",
 	};
 	const btnstyle = {
 		width: "fit-content",
@@ -60,22 +60,16 @@ export default function Page() {
 	const router = useRouter();
 
 	return (
-		<div style={main}>
-			{/* <div style={sidebar}>
-				<div className="d-flex">
-					<GuideSidebar />
-				</div>
-			</div> */}
-			<div style={rightbar}>
+		<div className="main">
+			<div className="sidebar">
 				<GuideRightbar />
 			</div>
-			<div style={content}>
+			<div className="content">
 				<div
 					className="d-flex justify-content-between"
 					style={{
 						marginTop: "10px",
 					}}>
-					{/* <p>Computer Science 2023-24</p> */}
 					<Body />
 				</div>
 			</div>

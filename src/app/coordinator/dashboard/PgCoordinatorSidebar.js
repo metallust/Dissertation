@@ -2,6 +2,9 @@ import React, { useState } from "react";
 
 import { useRouter } from "next/navigation";
 import { MdLogout } from "react-icons/md";
+import StudentTodo from "@/app/components/Todo";
+import Logout from "@/app/components/logout";
+import Announcement from "@/app/components/Announcment";
 
 const PgCoordinatorSidebar = () => {
 	const router = useRouter();
@@ -54,25 +57,8 @@ const PgCoordinatorSidebar = () => {
 		border: "none",
 	};
 
-	const logout = async () => {
-		try {
-			const response = await fetch("/api/auth/logout", {
-				method: "POST",
-			});
-			if (response.ok) {
-				console.log("Successfully logged out");
-				router.push("/login");
-			} else {
-				const data = await response.json();
-				alert(data.message, data.status);
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
 	return (
-		<div className="container d-flex flex-column align-items-center">
+		<div className="d-flex flex-column align-items-center">
 			<div
 				className="logo h3"
 				style={{
@@ -84,30 +70,8 @@ const PgCoordinatorSidebar = () => {
 					ResearchHouse
 				</div>
 			</div>
-
-			{/* <div
-				className="d-flex flex-column justify-content-center"
-				style={{
-					height: "120px",
-					width: "100%",
-					maxWidth: "300px",
-					backgroundColor: "#E1F8FF",
-					borderRadius: "10px",
-					padding: "0px 10px ",
-					margin: "10px 10px 10px 10px",
-					boxShadow: "0px 3px 4px 0px rgba(0,0,0,0.4)",
-					position: "relative",
-					overflow: "hidden",
-				}}>
-				<div className="text-center fw-bold">
-					Computer Science
-					<div></div>
-					2022-2023
-					<div></div>
-				</div>
-				<p className="fw-semibold">Upcoming: Presentation (05/12/2012)</p>
-			</div> */}
-
+			<StudentTodo />
+			{/* 
 			<div style={card}>
 				<div style={title}>Departments</div>
 				<div style={body}>
@@ -132,8 +96,8 @@ const PgCoordinatorSidebar = () => {
 						})}
 					</ul>
 				</div>
-			</div>
-
+			</div> */}
+			{/* 
 			<div
 				style={{
 					height: "180px",
@@ -168,25 +132,9 @@ const PgCoordinatorSidebar = () => {
 						})}
 					</ul>
 				</div>
-			</div>
-
-			<div
-				style={{
-					backgroundColor: "#E1F8FF",
-					marginTop: "10px",
-					borderRadius: "10px",
-					padding: "20px",
-					margin: "10px",
-					display: "flex",
-					justifyContent: "space-between",
-					boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-					width: "100%",
-				}}>
-				<h6>Logout</h6>
-				<button style={buttonstyle} onClick={logout}>
-					<MdLogout />
-				</button>
-			</div>
+			</div> */}
+			<Announcement />
+			<Logout />
 		</div>
 	);
 };

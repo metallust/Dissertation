@@ -19,9 +19,9 @@ export default function Layout({ children }) {
 			<div className="content">{children}</div>
 
 			{/* rightbar */}
-			<div className="rightbar">
+			{/* <div className="rightbar">
 				<PgRightbar />
-			</div>
+			</div> */}
 		</div>
 	);
 }

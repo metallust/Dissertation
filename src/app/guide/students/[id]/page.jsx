@@ -10,7 +10,7 @@ import GuideRightbar from "../../GuideRightbar";
 
 import Body from "./Body";
 
-export default function Page({params}) {
+export default function Page({ params }) {
 	//CSS
 	const sidebar = {
 		display: "block",

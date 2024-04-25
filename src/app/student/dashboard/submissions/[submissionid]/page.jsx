@@ -83,9 +83,13 @@ export default function Page({ params }) {
 						</a>
 					</li>
 				</ul>
-				{files.map((file) => {
-					return <File key={file.id} file={file} />; // file component
-				})}
+				{files.length === 0 ? (
+					<div className="text-center p-5">No files uploaded yet</div>
+				) : (
+					files.map((file) => {
+						return <File key={file.id} file={file} />; // file component
+					})
+				)}
 			</div>
 
 			{/* modal */}
