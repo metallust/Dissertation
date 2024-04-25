@@ -49,45 +49,36 @@ const AddGuide = ({ addGuide }) => {
 	};
 
 	const buttonStyle = {
-		width: "176px",
-		height: "50px",
-		padding: "10px",
 		backgroundColor: "#004257",
-		borderRadius: "10px",
 		border: "none",
-		color: "#fff",
-		fontSize: "20px",
-		fontWeight: "500",
-		boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px 0px 4px rgba(0, 0, 0, 0.25)",
-		marginBottom: "0px",
-		marginTop: "16px",
-		cursor: "pointer",
 	};
 
 	return (
 		<>
-			<div className="login-box" style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh" }}>
-				<div className="card border" style={cardStyle}>
-					<p style={headerStyle}>Enter Guide Details</p>
-					<form onSubmit={handleAdd}>
+			<div>
+				<div className="mt-3">
+					<h4 style={headerStyle}>Enter Guide Details</h4>
+					<form onSubmit={handleAdd} className="px-5">
 						<div className="mb-3">
-							<input type="text" placeholder="Guide Name" className="form-control" id="name" name="name" value={guide.name} onChange={onChange} style={inputStyle} required />
+							<input type="text" placeholder="Guide Name" className="form-control" id="name" name="name" value={guide.name} onChange={onChange} required />
 						</div>
 						<div className="mb-3">
-							<input type="email" placeholder="Email" className="form-control" id="email" name="email" value={guide.email} onChange={onChange} style={inputStyle} required />
+							<input type="email" placeholder="Email" className="form-control" id="email" name="email" value={guide.email} onChange={onChange} required />
 						</div>
 						<div className="mb-3">
-							<input type="password" placeholder="Create Password" className="form-control" id="password" name="password" value={guide.password} onChange={onChange} minLength={3} style={inputStyle} required />
+							<input type="password" placeholder="Create Password" className="form-control" id="password" name="password" value={guide.password} onChange={onChange} minLength={3} required />
 						</div>
 						<div className="mb-3">
-							<input type="text" placeholder="Domain of Expertise" className="form-control" id="domain" name="domain" value={guide.domain} onChange={onChange} style={inputStyle} required />
+							<input type="text" placeholder="Domain of Expertise" className="form-control" id="domain" name="domain" value={guide.domain} onChange={onChange} required />
 						</div>
 						<div className="mb-3">
-							<input type="text" placeholder="Enter Branch" className="form-control" id="branch" name="branch" value={guide.branch} onChange={onChange} style={inputStyle} required />
+							<input type="text" placeholder="Enter Branch" className="form-control" id="branch" name="branch" value={guide.branch} onChange={onChange} required />
 						</div>
-						<button type="submit" className="add-guide-button" style={buttonStyle}>
-							Add Guide
-						</button>
+						<div className="d-flex justify-content-center">
+							<button type="submit" className="btn btn-primary" style={buttonStyle}>
+								Add Guide
+							</button>
+						</div>
 					</form>
 				</div>
 			</div>

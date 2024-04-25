@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 export default function DomainSelectionPage() {
 	const router = useRouter();
 	// TODO: Fetch domains from the server
-	const [domains, setDomains] = useState(["Domain 1", "Domain 2", "Domain 3", "Domain 4", "Domain 5"]);
+	const [domains, setDomains] = useState([]);
 	const [preferences, setPreferences] = useState({ pref1: "", pref2: "", pref3: "" });
 
 	const logout = async () => {
@@ -31,7 +31,7 @@ export default function DomainSelectionPage() {
 	}, []);
 
 	const fetchDomains = async () => {
-		fetch("/api/batch/", {
+		fetch("/api/guide/", {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
@@ -41,7 +41,11 @@ export default function DomainSelectionPage() {
 			.then((data) => {
 				console.log("Fetched guides:", data); // Log the fetched data
 				if (data.statusCode === 200) {
-					console.log(data.data);
+					let domain = [];
+					for (const guide of data.data) {
+						domain.push(guide.domain);
+					}
+					setDomains(domain);
 				} else {
 					alert(data.message, data.status);
 				}
@@ -90,13 +94,12 @@ export default function DomainSelectionPage() {
 	console.log("setup");
 
 	return (
-		<div className="min-vh-100 p-4 bg-dark text-danger">
+		<div className="min-vh-100 p-4">
 			<h1>Domain Selection</h1>
-			<button onClick={logout}>Logout</button>
 			<form onSubmit={addPreference}>
-				<div>
+				<div className="p-2">
 					<label htmlFor="preference1">Preference 1 : </label>
-					<select id="preference1" value={preferences.pref1} onChange={(e) => handlePreferenceSelect("pref1", e.target.value)}>
+					<select className="form-control" id="preference1" value={preferences.pref1} onChange={(e) => handlePreferenceSelect("pref1", e.target.value)}>
 						<option value="">Select a domain...</option>
 						{domains.map((domain) => {
 							return (
@@ -107,9 +110,9 @@ export default function DomainSelectionPage() {
 						})}
 					</select>
 				</div>
-				<div>
+				<div className="p-2">
 					<label htmlFor="preference2">Preference 2 : </label>
-					<select id="preference2" value={preferences.pref2} onChange={(e) => handlePreferenceSelect("pref2", e.target.value)}>
+					<select className="form-control" id="preference2" value={preferences.pref2} onChange={(e) => handlePreferenceSelect("pref2", e.target.value)}>
 						<option value="">Select a domain...</option>
 						{domains.map((domain) => {
 							return (
@@ -120,9 +123,9 @@ export default function DomainSelectionPage() {
 						})}
 					</select>
 				</div>
-				<div>
+				<div className="p-2">
 					<label htmlFor="preference3">Preference 3 : </label>
-					<select id="preference3" value={preferences.pref3} onChange={(e) => handlePreferenceSelect("pref3", e.target.value)}>
+					<select className="form-control" id="preference3" value={preferences.pref3} onChange={(e) => handlePreferenceSelect("pref3", e.target.value)}>
 						<option value="">Select a domain...</option>
 						{domains.map((domain) => {
 							return (
@@ -133,7 +136,9 @@ export default function DomainSelectionPage() {
 						})}
 					</select>
 				</div>
-				<button type="submit">Set Prefrences</button>
+				<button type="submit" className="btn btn-primary mt-2">
+					Set Prefrences
+				</button>
 			</form>
 		</div>
 	);

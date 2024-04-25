@@ -81,60 +81,47 @@ export default function UserProfile({ params }) {
 		const data = await response.json();
 		if (data.statusCode === 200) {
 			console.log("Mapping done successfully", data);
+			fetchbatches();
 		} else {
 			alert(data.message, data.statusCode);
 		}
 	};
 
 	return (
-		<div style={{ backgroundColor: "#e1f8ff", padding: "20px", borderRadius: "10px", boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}>
-    <h1 style={{ color: "#004257" }}>Batch</h1>
-    <p style={{ color: "#004257" }}>Batch ID: {params.batchid}</p>
-    <p style={{ color: "#004257" }}>Batch year: {batch.year}</p>
-    <p style={{ color: "#004257" }}>Batch branch: {batch.branch}</p>
-    <button style={{ backgroundColor: "#004257", color: "#fff", padding: "10px", borderRadius: "5px", border: "none", cursor: "pointer" }} onClick={mapStudentGuide}>Allocate Student Guide</button>
-    {batch.mapping ? <Mapping mapping={batch.mapping} /> : <p style={{ color: "#004257" }}>Mapping not found</p>}
+		<div className="mt-1" style={{ padding: "20px", borderRadius: "10px", boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)" }}>
+			<div className="d-flex justify-content-between">
+				<h3 style={{ color: "#004257" }}>Batch</h3>
+				<button
+					style={{ backgroundColor: "#004257", color: "#fff" }}
+					className="btn btn-primary"
+					onClick={() => {
+						router.push(params.batchid + "/addstudent");
+					}}>
+					Add student
+				</button>
+			</div>
+			<p style={{ color: "#004257" }}>Batch ID: {params.batchid}</p>
+			<p style={{ color: "#004257" }}>Batch year: {batch.year}</p>
+			<p style={{ color: "#004257" }}>Batch branch: {batch.branch}</p>
+			<button style={{ backgroundColor: "#004257", color: "#fff", padding: "10px", borderRadius: "5px", border: "none", cursor: "pointer" }} onClick={mapStudentGuide}>
+				Allocate Student Guide
+			</button>
+			{batch.mapping ? <Mapping mapping={batch.mapping} /> : <p style={{ color: "#004257" }}>Mapping not found</p>}
 
-    <input
-        type="text"
-        name="name"
-        placeholder="Name"
-        style={{ width: "100%", padding: "10px", marginBottom: "10px", borderRadius: "5px", border: "1px solid #004257" }}
-        onChange={(e) => setStudent({ ...student, name: e.target.value })}
-        value={student.name}
-    />
-    <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        style={{ width: "100%", padding: "10px", marginBottom: "10px", borderRadius: "5px", border: "1px solid #004257" }}
-        onChange={(e) => setStudent({ ...student, email: e.target.value })}
-        value={student.email}
-    />
-    <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        style={{ width: "100%", padding: "10px", marginBottom: "10px", borderRadius: "5px", border: "1px solid #004257" }}
-        onChange={(e) => setStudent({ ...student, password: e.target.value })}
-        value={student.password}
-    />
-    <button style={{ backgroundColor: "#004257", color: "#fff", padding: "10px", borderRadius: "5px", border: "none", cursor: "pointer", marginBottom: "20px" }} onClick={addStudent}>Add student</button>
-	<h4 style={{ color: "#004257" }}>Students :</h4>
-	
-    <ul style={{ listStyleType: "none", padding: "0", margin: "0" }}>
-        {students.length !== 0 ? (
-            students.map((ele) => {
-                return <li key={ele._id}>{ele.name}</li>;
-            })
-        ) : (
-            <p style={{ color: "#004257" }}>no Students</p>
-        )}
-    </ul>
-    <h4 style={{ color: "#004257" }}>Timeline Editor</h4>
-    <Index batchid={params.batchid} />
-</div>
+			<h3 style={{ color: "#004257" }}>Students :</h3>
 
+			<ul style={{ listStyleType: "none", padding: "0", margin: "0" }}>
+				{students.length !== 0 ? (
+					students.map((ele) => {
+						return <li key={ele._id}>{ele.name}</li>;
+					})
+				) : (
+					<p style={{ color: "#004257" }}>no Students</p>
+				)}
+			</ul>
+			<h4 style={{ color: "#004257" }}>Timeline Editor :</h4>
+			<Index batchid={params.batchid} />
+		</div>
 	);
 }
 

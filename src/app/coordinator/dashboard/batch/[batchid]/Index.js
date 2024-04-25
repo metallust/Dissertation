@@ -107,7 +107,7 @@ function Index({ batchid }) {
 			{/* confirm */}
 			<div className="w-100 text-center">
 				<button className="btn btn-primary mt-5 " onClick={SaveTimeline}>
-					Confirm
+					save
 				</button>
 			</div>
 

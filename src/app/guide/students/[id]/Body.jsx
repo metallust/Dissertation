@@ -83,7 +83,7 @@ const Body = (props) => {
 			) : (
 				""
 			)}
-			{dissertation.stage === "submissions" ? (
+			{dissertation.stage === "submissions" || dissertation.stage === "final" ? (
 				<Submission
 					dissertation={dissertation}
 					fetchDissertation={() => {
@@ -93,6 +93,7 @@ const Body = (props) => {
 			) : (
 				""
 			)}
+			{dissertation.stage === "done" ? "Dissertation done" : ""}
 		</div>
 	);
 };

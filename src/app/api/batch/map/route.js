@@ -52,6 +52,7 @@ export async function POST(request) {
 			const preferences = dissertation.preferences;
 			if (preferences.length === 0) {
 				console.log("Student has no preferences", student.id);
+				return NextResponse.json(new Response(400, "Some student domain prefrence is remaining", null), { status: 400 });
 			}
 			students.push({ id: student, preferences });
 		}

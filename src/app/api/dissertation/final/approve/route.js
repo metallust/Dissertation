@@ -20,6 +20,7 @@ export async function POST(request) {
 		await dissertation.save();
 
 		dissertation.final = final;
+		dissertation.stage = "done";
 		await dissertation.save();
 
 		return NextResponse.json(new Response(200, "Approved successfully", final), {

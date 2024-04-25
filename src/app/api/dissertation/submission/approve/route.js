@@ -14,20 +14,25 @@ export async function POST(request) {
 
 		//loop throught the submission
 		const submissions = dissertation.submissions;
+		let stage = dissertation.stage;
 		console.log(submissions);
+		let count = 3;
 		for (const submission of submissions) {
 			console.log(submission);
 			//if approved is false approve it
 			if (!submission.approved) {
 				submission.approved = true;
+				if (count == 1) stage = "final";
 				break;
 			}
+			count--;
 		}
 		//save the disseration
 		dissertation.submissions = [];
 		await dissertation.save();
 
 		dissertation.submissions = submissions;
+		dissertation.stage = stage;
 		await dissertation.save();
 
 		return NextResponse.json(new Response(200, "Approved successfully", submissions), {

@@ -29,11 +29,6 @@ const batchSchema = new mongoose.Schema({
 		type: Object,
 		required: false,
 	},
-
-	domainset: {
-		type: [String], // Assuming domainset is an array of strings
-		required: false,
-	},
 });
 
 const Batch = mongoose.models.batches || mongoose.model("batches", batchSchema);

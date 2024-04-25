@@ -7,14 +7,13 @@ import PgCoordinatorSidebar from "./PgCoordinatorSidebar";
 import PgRightbar from "./PgRightbar";
 
 export default function Layout({ children }) {
-
 	return (
 		<div className="main">
 			{/* sidebar */}
 			<div className="sidebar">
 				<div className="d-flex">
-						<PgCoordinatorSidebar />
-					</div>
+					<PgCoordinatorSidebar />
+				</div>
 			</div>
 
 			<div className="content">{children}</div>

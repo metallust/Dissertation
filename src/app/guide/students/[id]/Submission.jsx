@@ -30,6 +30,7 @@ const Submission = ({ dissertation, fetchDissertation }) => {
 			console.error("Failed to approve");
 		}
 	};
+	console.log(dissertation);
 
 	return (
 		<div className="px-4">
@@ -76,24 +77,30 @@ const Submission = ({ dissertation, fetchDissertation }) => {
 			})}
 
 			<div>
-				<div className="d-flex mt-3 justify-content-between">
-					<h4>Final Report</h4>
-					{dissertation.final.approved ? (
-						<h5 className="text-success ms-2">Approved</h5>
-					) : dissertation.final.files.length > 0 ? (
-						<button className="btn btn-primary" onClick={handleFinalApproval}>
-							Approve
-						</button>
-					) : (
-						""
-					)}
-				</div>
-				{dissertation.final.files.length === 0 ? (
-					<p>No files uploaded</p>
+				{dissertation.final ? (
+					<>
+						<div className="d-flex mt-3 justify-content-between">
+							<h4>Final Report</h4>
+							{dissertation.final.approved ? (
+								<h5 className="text-success ms-2">Approved</h5>
+							) : dissertation.final.files.length > 0 ? (
+								<button className="btn btn-primary" onClick={handleFinalApproval}>
+									Approve
+								</button>
+							) : (
+								""
+							)}
+						</div>
+						{dissertation.final.files.length === 0 ? (
+							<p>No files uploaded</p>
+						) : (
+							dissertation.final.files.map((file) => {
+								return <File key={file} file={file} />;
+							})
+						)}
+					</>
 				) : (
-					dissertation.final.files.map((file) => {
-						return <File key={file} file={file} />;
-					})
+					"Final"
 				)}
 			</div>
 		</div>

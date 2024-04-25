@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { MdLogout } from "react-icons/md";
 
 const PgCoordinatorSidebar = () => {
 	const router = useRouter();
@@ -49,6 +49,27 @@ const PgCoordinatorSidebar = () => {
 	const departments = ["Computer Science", "IT", "Mechanical Engg", "Civil Engineering", "Artificial Intelligence", "Data Science"];
 
 	const batches = ["2022-23", "2021-22"];
+	const buttonstyle = {
+		background: "none",
+		border: "none",
+	};
+
+	const logout = async () => {
+		try {
+			const response = await fetch("/api/auth/logout", {
+				method: "POST",
+			});
+			if (response.ok) {
+				console.log("Successfully logged out");
+				router.push("/login");
+			} else {
+				const data = await response.json();
+				alert(data.message, data.status);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	return (
 		<div className="container d-flex flex-column align-items-center">
@@ -147,6 +168,24 @@ const PgCoordinatorSidebar = () => {
 						})}
 					</ul>
 				</div>
+			</div>
+
+			<div
+				style={{
+					backgroundColor: "#E1F8FF",
+					marginTop: "10px",
+					borderRadius: "10px",
+					padding: "20px",
+					margin: "10px",
+					display: "flex",
+					justifyContent: "space-between",
+					boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+					width: "100%",
+				}}>
+				<h6>Logout</h6>
+				<button style={buttonstyle} onClick={logout}>
+					<MdLogout />
+				</button>
 			</div>
 		</div>
 	);

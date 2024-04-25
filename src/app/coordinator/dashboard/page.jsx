@@ -33,34 +33,6 @@ export default function Page() {
 			console.log(error);
 		}
 	};
-
-	const createBatch = async () => {
-		if (batch.year === "" || batch.branch === "") {
-			alert("Please provide a year, branch");
-			console.log(batch);
-			return;
-		}
-		try {
-			const response = await fetch("/api/batch/", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(batch),
-			});
-			console.log(batch);
-			const data = await response.json();
-			if (data.statusCode === 200) {
-				console.log("Successfully created the batch", data);
-				fetchbatches();
-			} else {
-				alert(data.message, data.status);
-			}
-			setYear("");
-		} catch (error) {
-			console.log(error);
-		}
-	};
 	const addGuide = async () => {
 		try {
 			const response = await fetch("/api/guide/", {
@@ -177,6 +149,28 @@ export default function Page() {
 									<button className="btn btn-primary" style={buttonStyle} onClick={() => router.push("dashboard/batch/" + ele._id)}>
 										<FaArrowRight />
 									</button>
+								</div>
+							);
+						})
+					) : (
+						<p>no batches</p>
+					)}
+				</div>
+			</div>
+
+			<h3 className="fw-bold">Batches : </h3>
+			<div className="min-vh-100">
+				<div className="container">
+					{guides.length !== 0 ? (
+						guides.map((ele) => {
+							return (
+								<div key={ele._id} className="d-flex gap-4 my-3">
+									<div className="d-flex flex-grow-1" style={{ backgroundColor: "#e1f8ff", borderRadius: "5px", padding: "5px 10px", fontSize: "12px", display: "flex", alignItems: "center", justifyContent: "space-between", boxShadow: "0px 3px 4px 0px rgba(0,0,0,0.4)" }}>
+										<div className="flex-grow-1" style={{ fontWeight: 600 }}>
+											<span>Name: {ele.name}</span>
+										</div>
+										<div style={{ fontWeight: "bold", textAlign: "right" }}>Branch: {ele.branch}</div>
+									</div>
 								</div>
 							);
 						})

@@ -6,11 +6,39 @@ const AddBatch = ({ addBatch }) => {
 	const handleAdd = (e) => {
 		e.preventDefault();
 		addBatch(batch);
-		setBatch({ year: "", branch: "" });
+		createBatch();
 	};
 
 	const onChange = (e) => {
 		setBatch({ ...batch, [e.target.name]: e.target.value });
+	};
+
+	const createBatch = async () => {
+		if (batch.year === "" || batch.branch === "") {
+			alert("Please provide a year, branch");
+			console.log(batch);
+			return;
+		}
+		try {
+			const response = await fetch("/api/batch/", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(batch),
+			});
+			console.log(batch);
+			const data = await response.json();
+			if (data.statusCode === 200) {
+				console.log("Successfully created the batch", data);
+				fetchbatches();
+			} else {
+				alert(data.message, data.status);
+			}
+			setBatch({ year: "", branch: "" });
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const inputStyle = {
