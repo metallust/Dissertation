@@ -1,6 +1,6 @@
 "use client";
 
-import { FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -128,20 +128,20 @@ export default function Page() {
 	};
 
 	const buttonStyle = {
-        // width: "176px",
-        // height: "30px",
-        // padding: "10px",
-        backgroundColor: "#004257",
-        borderRadius: "5px",
-        border: "none",
-        color: "#fff",
-        // fontSize: "20px",
-        // fontWeight: "500",
-        boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px 0px 4px rgba(0, 0, 0, 0.25)",
-        // marginBottom: "20px",
-        cursor: "pointer",
-		marginLeft:"10px"
-    };
+		// width: "176px",
+		// height: "30px",
+		// padding: "10px",
+		backgroundColor: "#004257",
+		borderRadius: "5px",
+		border: "none",
+		color: "#fff",
+		// fontSize: "20px",
+		// fontWeight: "500",
+		boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px 0px 4px rgba(0, 0, 0, 0.25)",
+		// marginBottom: "20px",
+		cursor: "pointer",
+		marginLeft: "10px",
+	};
 
 	useEffect(() => {
 		fetchbatches();
@@ -149,52 +149,49 @@ export default function Page() {
 	}, []);
 	return (
 		<div className="px-4  ">
-			<div className="flex-grow-1 d-flex justify-content-between">
-					<h3 className="fw-bold">Batches : </h3>
-					<div>
+			<div className="flex-grow-1 d-flex justify-content-between mt-4">
+				<h3 className="fw-bold">Batches : </h3>
+				<div>
 					<button type="button" onClick={() => router.push("/coordinator/dashboard/addbatch")} className="btn btn-primary" style={{ background: "#004256" }}>
 						+ Add Batch
 					</button>
-					<button type="button" onClick={() => router.push("/coordinator/dashboard/addGuide")} className="btn btn-primary" style={{ background: "#004256", marginLeft:"15px" }}>
+					<button type="button" onClick={() => router.push("/coordinator/dashboard/addGuide")} className="btn btn-primary" style={{ background: "#004256", marginLeft: "15px" }}>
 						+ Add Guide
 					</button>
-					</div>
 				</div>
+			</div>
 
-			<div className="min-vh-100 p-4">
-   
-    <div className="container">
-        {batches.length !== 0 ? (
-            batches.map((ele) => {
-                return (
-                    <div key={ele._id} className="d-flex gap-4 my-3">
-                        <div className="d-flex flex-grow-1" style={{ backgroundColor: "#e1f8ff", borderRadius: "5px", padding: "5px 10px", fontSize: "12px", display: "flex", alignItems: "center", justifyContent: "space-between", boxShadow: "0px 3px 4px 0px rgba(0,0,0,0.4)" }}>
-    <div className="flex-grow-1" style={{ fontWeight: 600 }}>
-        <span>Year: {ele.year}</span>
-    </div>
-    <div style={{ fontWeight: "bold", textAlign: "right" }}>Branch: {ele.branch}</div>
-</div>
+			<div className="min-vh-100">
+				<div className="container">
+					{batches.length !== 0 ? (
+						batches.map((ele) => {
+							return (
+								<div key={ele._id} className="d-flex gap-4 my-3">
+									<div className="d-flex flex-grow-1" style={{ backgroundColor: "#e1f8ff", borderRadius: "5px", padding: "5px 10px", fontSize: "12px", display: "flex", alignItems: "center", justifyContent: "space-between", boxShadow: "0px 3px 4px 0px rgba(0,0,0,0.4)" }}>
+										<div className="flex-grow-1" style={{ fontWeight: 600 }}>
+											<span>Year: {ele.year}</span>
+										</div>
+										<div style={{ fontWeight: "bold", textAlign: "right" }}>Branch: {ele.branch}</div>
+									</div>
 
-                        <button className="btn btn-primary" style={buttonStyle} onClick={() => router.push("dashboard/batch/" + ele._id)}>
-    <FaArrowRight />
-</button>
-                    </div>
-                );
-            })
-        ) : (
-            <p>no batches</p>
-        )}
-    </div>
-</div>
-
-
+									<button className="btn btn-primary" style={buttonStyle} onClick={() => router.push("dashboard/batch/" + ele._id)}>
+										<FaArrowRight />
+									</button>
+								</div>
+							);
+						})
+					) : (
+						<p>no batches</p>
+					)}
+				</div>
+			</div>
 
 			{/* <button onClick={logout}>Logout</button>
 			<br />
 			{/* add batch */}
 			{/* <input type="year" placeholder="Year" onChange={(e) => setBatch({ ...batch, year: e.target.value })} value={batch.year} />
 			<input type="text" placeholder="Branch" onChange={(e) => setBatch({ ...batch, branch: e.target.value })} value={batch.branch} />
-			<button onClick={createBatch}>Create Batch</button> */} 
+			<button onClick={createBatch}>Create Batch</button> */}
 			{/* <ul>
 				{batches.length !== 0 ? (
 					batches.map((ele) => {
@@ -210,7 +207,7 @@ export default function Page() {
 				)}
 			</ul>
 			{/* add guide */}
-			{/* <br /> */} 
+			{/* <br /> */}
 			{/* <input type="text" name="name" placeholder="Name" onChange={(e) => setGuide({ ...guide, name: e.target.value })} value={guide.name} />
 			<input type="email" name="email" placeholder="Email" onChange={(e) => setGuide({ ...guide, email: e.target.value })} value={guide.email} />
 			<input type="password" name="password" placeholder="Password" onChange={(e) => setGuide({ ...guide, password: e.target.value })} value={guide.password} />
