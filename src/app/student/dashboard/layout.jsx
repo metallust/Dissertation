@@ -51,7 +51,7 @@ export default function Layout({ children }) {
 			if (data.data.stage === "domainselection") {
 				setCompleted(0);
 				router.push("/student/dashboard/setup/");
-			} else if (data.data.stage === "topicselection") {
+			} else if (data.data.stage === "ideasubmission") {
 				setCompleted(1);
 				router.push("/student/dashboard/topicselection");
 			} else if (data.data.stage === "submissions") {

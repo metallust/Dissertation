@@ -32,7 +32,7 @@ const Body = (props) => {
 		getDissertation(id);
 
 		// console.log(dissertation);
-	});
+	}, []);
 	//If topic is not finalized show the topic given by student
 	//Select a topic and notify the student
 	const handleSelectIdea = () => {
@@ -87,7 +87,7 @@ const Body = (props) => {
 				<div>
 					<h1>Submissions</h1>
 					{dissertation.submissions.map((submission) => {
-						return <div></div>;
+						return <div key={submission.id}>{submission}</div>;
 					})}
 				</div>
 			) : (

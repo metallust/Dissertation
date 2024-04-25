@@ -35,6 +35,7 @@ const Body = () => {
 			});
 			const data = await res.json();
 			if (data.statusCode === 200) {
+				console.log(data.data, bat);
 				var x = await data.data.filter((ele) => ele.branch === bat.branch);
 				setBatches(x);
 				handleBatch(x[selectedbranch], bat._id);
@@ -48,7 +49,7 @@ const Body = () => {
 	};
 
 	const handleBatch = async (batch, id) => {
-		// setSelectedbranch(i);
+		// setSelectedbranch(i)
 		try {
 			console.log(batch);
 			// const filteredBatch = batch.filter((b) => b.year === batch[selectedbranch].year);
