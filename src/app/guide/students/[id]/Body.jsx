@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
+import Submission from "./Submission";
 
 const Body = (props) => {
 	const { id } = props;
@@ -30,8 +31,6 @@ const Body = (props) => {
 	useEffect(() => {
 		//Get the dissertation of the student with props.id
 		getDissertation(id);
-
-		// console.log(dissertation);
 	}, []);
 	//If topic is not finalized show the topic given by student
 	//Select a topic and notify the student
@@ -48,6 +47,7 @@ const Body = (props) => {
 			.then((data) => {
 				if (data.statusCode === 200) {
 					console.log(data.data);
+					getDissertation(id);
 				} else {
 					alert(data.message, data.status);
 				}
@@ -84,12 +84,12 @@ const Body = (props) => {
 				""
 			)}
 			{dissertation.stage === "submissions" ? (
-				<div>
-					<h1>Submissions</h1>
-					{dissertation.submissions.map((submission) => {
-						return <div key={submission.id}>{submission}</div>;
-					})}
-				</div>
+				<Submission
+					dissertation={dissertation}
+					fetchDissertation={() => {
+						getDissertation(id);
+					}}
+				/>
 			) : (
 				""
 			)}
