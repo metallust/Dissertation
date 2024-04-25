@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 export default function Page({ params }) {
 	const [files, setFiles] = useState([]);
 	const [review, setReview] = useState("No review yet");
-
 	const [selectedfiles, setSelectedfiles] = useState([]);
 
 	const handleFileChange = (event) => {
@@ -25,7 +24,7 @@ export default function Page({ params }) {
 		});
 
 		try {
-			const response = await fetch("/api/dissertation/submission/" + params.submissionid, {
+			const response = await fetch("/api/dissertation/final/", {
 				method: "POST",
 				body: formData,
 			});
@@ -37,26 +36,24 @@ export default function Page({ params }) {
 				console.error("Failed to upload files");
 			}
 			document.getElementById("fileModal").close();
-			fetchSubmission();
+			fetchFinal();
+			setSelectedfiles([]);
 		} catch (error) {
 			console.error("Error uploading files:", error);
 		}
 	};
 
-	const fetchSubmission = async () => {
-		const res = await fetch("/api/dissertation/submission/");
+	const fetchFinal = async () => {
+		const res = await fetch("/api/dissertation/final/");
 		const data = await res.json();
-		for (let i = 0; i < data.data.length; i++) {
-			if (data.data[i].id === params.submissionid) {
-				setFiles(data.data[i].files);
-				setReview(data.data[i].review === "" ? "No review yet" : data.data[i].review);
-				break;
-			}
+		if (data.statusCode === 200) {
+			console.log("Successfully fetched final submission", data.data);
+			setFiles(data.data.files);
 		}
 	};
 
 	useEffect(() => {
-		fetchSubmission();
+		fetchFinal();
 	}, []);
 
 	return (
@@ -83,9 +80,15 @@ export default function Page({ params }) {
 						</a>
 					</li>
 				</ul>
-				{files.map((file) => {
-					return <File key={file.id} file={file} />; // file component
-				})}
+				{files.length !== 0 ? (
+					files.map((file) => {
+						return <File key={file.id} file={file} />; // file component
+					})
+				) : (
+					<div className="container d-flex justify-content-center align-items-center" style={{ height: "50vh" }}>
+						<h4>No files uploaded yet</h4>
+					</div>
+				)}
 			</div>
 
 			{/* modal */}

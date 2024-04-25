@@ -6,7 +6,6 @@ import Rightbar from "./Rightbar";
 import { useRouter } from "next/navigation";
 import Timeline from "./Timeline";
 import { useEffect, useState } from "react";
-import { set } from "mongoose";
 
 export default function Layout({ children }) {
 	const router = useRouter();
@@ -32,11 +31,6 @@ export default function Layout({ children }) {
 			alert(data.message + data.status);
 		}
 	};
-
-	useEffect(() => {
-		fetchTimeline();
-	}, []);
-
 	const fetchSubmission = async () => {
 		const response = await fetch("/api/dissertation/submission", { method: "GET" });
 		const data = await response.json();
@@ -75,10 +69,10 @@ export default function Layout({ children }) {
 					temp++;
 				}
 			} else if (data.data.stage === "final") {
-				setCompleted(timeline.length - 2);
+				setCompleted(timeline.length - 1);
 				router.push("/student/dashboard/final");
 			} else if (data.data.stage === "done") {
-				setCompleted(timeline.length - 1);
+				setCompleted(timeline.length);
 				router.push("/student/dashboard/report");
 			} else {
 				router.push("/student/dashboard");
@@ -87,10 +81,13 @@ export default function Layout({ children }) {
 			alert(data.message, data.status);
 		}
 	};
+	useEffect(() => {
+		fetchTimeline();
+	}, []);
 
 	useEffect(() => {
 		fetchDissertation();
-	}, []);
+	}, [timeline]);
 
 	// TODO: announcements
 	const announcements = [
@@ -109,7 +106,7 @@ export default function Layout({ children }) {
 		<div className="main">
 			{/* sidebar */}
 			<div className="sidebar">
-				<Sidebar announcements={announcements} todos={todos} />
+				<Sidebar announcements={announcements} todos={todos} node={timeline[completed]} done={completed === timeline.length} />
 			</div>
 
 			<div className="content">
@@ -118,9 +115,9 @@ export default function Layout({ children }) {
 			</div>
 
 			{/* rightbar */}
-			<div className="rightbar">
+			{/*<div className="rightbar">
 				<Rightbar />
-			</div>
+	</div>*/}
 		</div>
 	);
 }
