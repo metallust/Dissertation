@@ -1,4 +1,4 @@
 "use client";
 export default function Page() {
-	return <h1> Report </h1>;
+	return <h1>Plagrism Report </h1>;
 }
