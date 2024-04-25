@@ -5,33 +5,89 @@ import Sidebar from "./Sidebar";
 import Rightbar from "./Rightbar";
 import { useRouter } from "next/navigation";
 import Timeline from "./Timeline";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Layout({ children }) {
 	const router = useRouter();
+	const [timeline, setTimeline] = useState([]);
+	const [completed, setCompleted] = useState(0);
+
+	const fetchTimeline = async () => {
+		const response = await fetch("/api/dissertation/timeline/", { method: "GET" });
+		const data = await response.json();
+		if (data.statusCode === 200) {
+			console.log("Successfully fetched timeline", data.data);
+			let newTimeline = [];
+			data.data.forEach((item) => {
+				newTimeline.push({
+					title: item.name,
+					position: 1,
+					due: item.due,
+				});
+			});
+
+			setTimeline(newTimeline);
+		} else {
+			alert(data.message + data.status);
+		}
+	};
+	const fetchSubmission = async () => {
+		const response = await fetch("/api/dissertation/submission", { method: "GET" });
+		const data = await response.json();
+		if (data.statusCode === 200) {
+			console.log("Successfully fetched submissions", data.data);
+			return data.data;
+		} else {
+			alert(data.message + data.status);
+		}
+	};
+
 	const fetchDissertation = async () => {
 		const response = await fetch("/api/dissertation");
 		if (response.ok) {
 			const data = await response.json();
 			console.log("Successfully fetched dissertation", data.data.stage);
 
-			// if (data.data.stage === "domainselection") {
-			// 	router.push("/student/dashboard/setup/");
-			// } else if (data.data.stage === "ideasubmission") {
-			// 	router.push("/student/dashboard/topicselection");
-			// } else if (data.data.stage === "submissions") {
-			// 	router.push("/student/dashboard/submissions");
-			// } else {
-			// 	router.push("/student/dashboard");
-			// }
+			if (data.data.stage === "domainselection") {
+				setCompleted(0);
+				router.push("/student/dashboard/setup/");
+			} else if (data.data.stage === "ideasubmission") {
+				setCompleted(1);
+				router.push("/student/dashboard/topicselection");
+			} else if (data.data.stage === "submissions") {
+				router.push("/student/dashboard/submissions");
+
+				//setCompleted(2);
+				let temp = 2;
+				const submissions = await fetchSubmission();
+				for (const submission of submissions) {
+					console.log(submission.approved);
+					if (!submission.approved) {
+						setCompleted(temp);
+						break;
+					}
+					temp++;
+				}
+			} else if (data.data.stage === "final") {
+				setCompleted(timeline.length - 1);
+				router.push("/student/dashboard/final");
+			} else if (data.data.stage === "done") {
+				setCompleted(timeline.length);
+				router.push("/student/dashboard/report");
+			} else {
+				router.push("/student/dashboard");
+			}
 		} else {
 			alert(data.message, data.status);
 		}
 	};
+	useEffect(() => {
+		fetchTimeline();
+	}, []);
 
 	useEffect(() => {
 		fetchDissertation();
-	}, []);
+	}, [timeline]);
 
 	// TODO: announcements
 	const announcements = [
@@ -50,43 +106,18 @@ export default function Layout({ children }) {
 		<div className="main">
 			{/* sidebar */}
 			<div className="sidebar">
-				<Sidebar announcements={announcements} todos={todos} />
+				<Sidebar announcements={announcements} todos={todos} node={timeline[completed]} done={completed === timeline.length} />
 			</div>
 
 			<div className="content">
-				<Timeline
-					n={5}
-					complete={3}
-					descriptions={[
-						{
-							title: "Synopsis",
-							position: 1,
-						},
-						{
-							title: "Research",
-							position: 1,
-						},
-						{
-							title: "Implementation",
-							position: 1,
-						},
-						{
-							title: "Reports",
-							position: 1,
-						},
-						{
-							title: "Publication",
-							position: 1,
-						},
-					]}
-				/>
+				{timeline.length === 0 ? <div>Loading timeline...</div> : <Timeline n={timeline.length} complete={completed} descriptions={timeline} />}
 				{children}
 			</div>
 
 			{/* rightbar */}
-			<div className="rightbar">
+			{/*<div className="rightbar">
 				<Rightbar />
-			</div>
+	</div>*/}
 		</div>
 	);
 }

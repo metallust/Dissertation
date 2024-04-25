@@ -1,7 +1,9 @@
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 
 const GuideSidebar = () => {
+	const router = useRouter();
 	const card = {
 		height: "150px",
 		width: "100%",
@@ -34,6 +36,8 @@ const GuideSidebar = () => {
 
 	const [activeDepartment, setActiveDepartment] = useState(null);
 	const [activeBatch, setActiveBatch] = useState(null);
+
+	
 
 	const handleDepartmentClick = (index) => {
 		setActiveDepartment(index);
@@ -170,6 +174,7 @@ const GuideSidebar = () => {
 					</ul>
 				</div>
 			</div>
+
 		</div>
 	);
 };

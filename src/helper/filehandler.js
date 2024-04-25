@@ -14,8 +14,7 @@ async function saveFiles(req) {
 		const bytes = await element.arrayBuffer();
 		const buffer = Buffer.from(bytes);
 		const filename = `${Date.now()}-${element.name}`;
-		const name = join("uploads", filename);
-		fileNames.push(name);
+		fileNames.push(filename);
 		await writeFile(join(process.cwd(), "public", "uploads", filename), buffer);
 	}
 

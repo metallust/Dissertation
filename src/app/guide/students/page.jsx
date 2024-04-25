@@ -5,8 +5,10 @@ import { useRouter } from "next/navigation";
 import GuideSidebar from "../GuideSidebar";
 // import AddGuides from "../pgCoordinator/AddGuides";
 import GuideRightbar from "../GuideRightbar";
-import GuideAnalytics from "./GuideAnalytics";
-import GuideApproval from "./GuideApproval";
+// import GuideAnalytics from "./GuideAnalytics";
+// import GuideApproval from "./GuideApproval";
+
+import Body from "./Body";
 
 export default function Page() {
 	//CSS
@@ -14,28 +16,30 @@ export default function Page() {
 		display: "block",
 		/* background: rgba(0, 0, 0, 0.2), */
 		maxWidth: "280px",
-		flexGrow: "4",
+		// flexGrow: "4",
 		overflow: "hidden",
 		overflowY: "scroll",
 	};
 	const main = {
 		display: "flex",
 		height: "100vh",
+        overflowY:"hidden"
 	};
 	const content = {
 		display: "block",
 		/* background: rgba(0, 0, 0, 0.4), */
-		flexGrow: "3",
-		overflow: "hidden",
+		flexGrow: "9",
+		// overflow: "hidden",
 		overflowY: "scroll",
+        // height : "100dvh",
+        // background:"black"
 	};
 	const rightbar = {
-		background: "rgba(255, 255, 255, 0.2)",
-		minWidth: "140px",
-		maxWidth: "200px",
-		flexGrow: "1",
-		overflow: "hidden",
-		overflowY: "scroll",
+		maxWidth: "160px",
+        flexGrow: "1",
+        overflow: "hidden",
+        overflowY: "scroll",
+        scrollbarWidth: "none",
 	};
 	const btnstyle = {
 		width: "fit-content",
@@ -54,49 +58,26 @@ export default function Page() {
 	};
 
 	const router = useRouter();
-	const logout = async () => {
-		try {
-			const response = await fetch("/api/auth/logout", {
-				method: "POST",
-			});
-			if (response.ok) {
-				console.log("Successfully logged out");
-				router.push("/login");
-			} else {
-				const data = await response.json();
-				alert(data.message, data.status);
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
+
 	return (
 		<div style={main}>
-			<div style={sidebar}>
+			{/* <div style={sidebar}>
 				<div className="d-flex">
 					<GuideSidebar />
-					{/* <Outlet /> */}
 				</div>
-			</div>
-			{/* <div style={content}>
-				<AddGuides />
-				<Outlet />
 			</div> */}
+			<div style={rightbar}>
+				<GuideRightbar />
+			</div>
 			<div style={content}>
 				<div
 					className="d-flex justify-content-between"
 					style={{
 						marginTop: "10px",
 					}}>
-					<p>Computer Science 2023-24</p>
+					{/* <p>Computer Science 2023-24</p> */}
+					<Body />
 				</div>
-				<button onClick={logout}>Logout</button>
-				{/* <GuideSubmissionView /> */}
-				<GuideApproval />
-				{/* <Outlet /> */}
-			</div>
-			<div style={rightbar}>
-				<GuideRightbar />
 			</div>
 		</div>
 	);

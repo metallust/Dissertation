@@ -1,13 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
-import AddNode from "./AddNode";
 import Node from "./Node";
 import "./Index.css";
 
 function Index({ batchid }) {
-	const [timeline, setTimeline] = useState([]);
+	const [timeline, setTimeline] = useState([
+		{ name: "Setup", due: "asdfkds" },
+		{ name: "Idea Submission", due: "" },
+		{ name: "Final", due: "" },
+	]);
 	const [name, setName] = useState("");
 	const [dueDate, setDueDate] = useState("");
 	const [position, setPosition] = useState(0);
+	const [count, setCount] = useState(3);
 
 	const fetchTimeline = async () => {
 		const response = await fetch("/api/batch/timeline/" + "?batchid=" + batchid, { method: "GET" });
@@ -40,48 +44,72 @@ function Index({ batchid }) {
 		fetchTimeline();
 	}, []);
 
+	useEffect(() => {
+		setTimeline([
+			{ name: "Setup", due: "" },
+			{ name: "Idea Submission", due: "" },
+			...Array.from({ length: count }, (_, i) => {
+				return { name: "Submission " + (i + 1), due: "" };
+			}),
+			{ name: "Final", due: "" },
+		]);
+	}, [count]);
+
 	const ref = useRef(null);
-	function addNode(position) {
+
+	const editNode = (node, index) => {
+		setName(node.name);
+		setDueDate(node.due);
+		setPosition(index);
 		ref.current.click();
-		setPosition(position);
-	}
+	};
+
 	function handleCreate() {
-		console.log(position);
-		const newtimeline = timeline.slice(0, position).concat({ name, dueDate }, timeline.slice(position));
-		setTimeline(newtimeline);
+		timeline[position].due = dueDate;
+		setTimeline(timeline);
 		setName("");
 		setDueDate("");
 	}
 
-	function removeNode(position) {
-		console.log("remove ", position);
-		const newtimeline = timeline.slice(0, position).concat(timeline.slice(position + 1));
-		setTimeline(newtimeline);
-	}
-
 	const linestyle = {
 		backgroundColor: "#e1f8ff",
-		// padding: "0px 20px",
+		width: "100%",
 		height: "5px",
 		position: "flex",
 		alignItems: "center",
-		gap: "80px",
+		justifyContent: "space-between",
 	};
 
 	return (
 		<>
+			<div>
+				<label htmlFor="nosubmission">Number of Presentation</label>
+				<input
+					type="number"
+					className="form-control"
+					placeholder="3"
+					id="nosubmission"
+					value={count}
+					onChange={(e) => {
+						setCount(e.target.value);
+					}}
+					max={10}
+				/>
+			</div>
 			<div className="d-flex justify-content-center align-items-center pt-5">
 				<div className="d-flex" style={linestyle}>
-					<AddNode addNode={addNode} position={0} />
-					{timeline.flatMap((node, index) => {
-						return [<Node key={node.name} name={node.name} due={node.due} position={index} removenode={removeNode} />, <AddNode key={2} addNode={addNode} position={index + 1} />];
+					{timeline.map((node, index) => {
+						return <Node node={node} key={index} editNode={() => editNode(node, index)} />;
 					})}
 				</div>
 			</div>
+
 			{/* confirm */}
-			<button className="btn btn-primary" onClick={SaveTimeline}>
-				Confirm
-			</button>
+			<div className="w-100 text-center">
+				<button className="btn btn-primary mt-5 " onClick={SaveTimeline}>
+					Confirm
+				</button>
+			</div>
 
 			{/* modal */}
 			<button type="button" ref={ref} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -93,26 +121,12 @@ function Index({ batchid }) {
 					<div className="modal-content">
 						<div className="modal-header">
 							<h1 className="modal-title fs-5" id="exampleModalLabel">
-								Add Event
+								Node name: {name}
 							</h1>
 							<button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 						<div className="modal-body">
 							<div className="mb-3">
-								<div className="mb-3">
-									<label htmlFor="name" className="form-label">
-										Name
-									</label>
-									<input
-										className="form-control"
-										id="name"
-										placeholder="Implementation"
-										value={name}
-										onChange={(e) => {
-											setName(e.target.value);
-										}}
-									/>
-								</div>
 								<div className="mb-3">
 									<label htmlFor="due" className="form-label">
 										Due Date

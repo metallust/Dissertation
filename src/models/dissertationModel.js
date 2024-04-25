@@ -17,7 +17,7 @@ const disserationSchema = new mongoose.Schema({
 	},
 	stage: {
 		type: String,
-		enum: ["domainselection", "ideasubmission", "submissions", "final"],
+		enum: ["domainselection", "ideasubmission", "submissions", "final", "done"],
 		default: "domainselection",
 	},
 	preferences: {
@@ -35,6 +35,13 @@ const disserationSchema = new mongoose.Schema({
 	submissions: {
 		type: Object,
 		default: [],
+	},
+	final: {
+		type: Object,
+		default: null,
+	},
+	finalidea: {
+		type: String,
 	},
 });
 
